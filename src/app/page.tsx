@@ -1,21 +1,17 @@
-import NetworkDiffusion from '@/components/visualizations/NetworkDiffusion'
 import { FeaturesSection } from '@/components/sections/FeaturesSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CTASection } from '@/components/sections/CTASection'
 import { SiteFooter } from '@/components/sections/SiteFooter'
+import HeroSplit from '@/components/sections/HeroSplit'
 
 export default function LandingPage() {
 	return (
-		<main className='flex min-h-screen flex-col bg-gray-50 text-gray-800'>
-			{/* Hero */}
-			<NetworkDiffusion />
-			{/* Features */}
+		<main className='relative flex flex-col bg-[#07050b] text-white overflow-hidden'>
+			{/* Split Hero: текст слева, анимация справа */}
+			<HeroSplit />
 			<FeaturesSection />
-			{/* Testimonials */}
 			<TestimonialsSection />
-			{/* CTA */}
 			<CTASection />
-			{/* Footer */}
 			<SiteFooter />
 		</main>
 	)
