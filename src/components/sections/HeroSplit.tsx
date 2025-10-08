@@ -3,17 +3,14 @@ import NetworkDiffusion from '@/components/visualizations/NetworkDiffusion';
 
 /*
   HeroSplit: левый столбец — заголовок/подзаголовок и CTA, правый — анимация.
-  Фон: тёмный с диагональным радиальным градиентом фиолетового свечения, чтобы
-  визуально похоже на предоставленный референс.
+  Очистка: убраны градиентные фоны и все border.
 */
 export const HeroSplit: React.FC = () => {
   return (
     <section className="relative isolate pt-28 md:pt-32 pb-24 overflow-hidden">
-      {/* Фоновое свечение */}
+      {/* Базовый однотонный фон */}
       <div className="absolute inset-0 -z-10 bg-[#07050b]" />
-      <div className="absolute -z-10 inset-0 pointer-events-none [background:radial-gradient(circle_at_65%_40%,rgba(115,43,255,0.55)_0%,rgba(40,15,70,0.65)_35%,rgba(10,8,15,0.9)_70%,#07050b_90%)]" />
-      {/* Лёгкий верхний градиент затемнения */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+      {/* (Удалены radial / верхний градиент слои) */}
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid gap-14 lg:gap-8 lg:grid-cols-2 items-center min-h-[60vh]">
@@ -38,10 +35,8 @@ export const HeroSplit: React.FC = () => {
           </div>
 
           {/* Right: Animation panel */}
-          <div className="relative h-[480px] sm:h-[520px] md:h-[560px] lg:h-[640px] rounded-3xl overflow-hidden border border-violet-500/20 bg-gradient-to-b from-[#140b21] via-[#12081d] to-[#0c0814] shadow-[0_0_40px_-10px_rgba(140,50,255,0.4),0_0_140px_-40px_rgba(200,120,255,0.25)]">
+          <div className="relative h-[480px] sm:h-[520px] md:h-[560px] lg:h-[640px]">
             <NetworkDiffusion variant='panel' />
-            {/* Overlay subtle gradient */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(160,60,255,0.25),rgba(0,0,0,0)_60%)]" />
           </div>
         </div>
       </div>
