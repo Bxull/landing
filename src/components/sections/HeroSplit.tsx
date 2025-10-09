@@ -7,10 +7,9 @@ import NetworkDiffusion from '@/components/visualizations/NetworkDiffusion';
 */
 export const HeroSplit: React.FC = () => {
   return (
-    <section className="relative isolate pt-28 md:pt-32 pb-24 overflow-hidden">
-      {/* Базовый однотонный фон */}
-      <div className="absolute inset-0 -z-10 bg-[#07050b]" />
-      {/* (Удалены radial / верхний градиент слои) */}
+    <section className="relative isolate pt-28 md:pt-32 pb-24 overflow-hidden hero-vignette">
+      <div className="hero-bg-gradient" />
+      <div className="hero-bg-noise" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid gap-14 lg:gap-8 lg:grid-cols-2 items-center min-h-[60vh]">

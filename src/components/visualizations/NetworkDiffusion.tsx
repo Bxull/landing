@@ -29,19 +29,27 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
 
     const center = { x: width / 2, y: height / 2, radius: 6 };
 
-    const particles = Array.from({ length: variant === 'panel' ? 90 : 120 }, () => ({
+    const particles = Array.from({ length: variant === 'panel' ? 80 : 120 }, () => ({
       angle: Math.random() * Math.PI * 2,
-      // слегка расширяем зону распределения (раньше -50) чтобы анимация казалась больше
-      distance: Math.random() * (Math.min(width, height) / 2 - 20) + 20,
-      speed: Math.random() * 0.002 + 0.001,
+      distance: variant === 'panel'
+        ? Math.random() * (Math.min(width, height) * 0.55) + 30
+        : Math.random() * (Math.min(width, height) / 2 - 20) + 20,
+      speed: Math.random() * 0.0016 + 0.0008,
       phase: Math.random() * Math.PI * 2,
     }));
 
     let tick = 0;
+    let frame = 0;
     let animationId: number;
 
     const draw = () => {
       if (!ctx) return;
+      frame++;
+      if (variant === 'panel' && frame % 2 === 0) { // простой пропуск каждого второго кадра ~30fps
+        animationId = requestAnimationFrame(draw);
+        return;
+      }
+
       // Удаляем заливку задника: делаем холст прозрачным каждый кадр
       ctx.clearRect(0, 0, width, height);
 
@@ -74,8 +82,9 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         const y = center.y + Math.sin(p.angle + Math.cos(tick * 0.01 + p.phase)) * p.distance;
 
         const alpha = Math.max(0, 1 - p.distance / (Math.min(width, height) / 2));
+        if (alpha < 0.07) return; // отсечь почти невидимые дальние линии
         ctx.strokeStyle = `rgba(170,0,255,${alpha * 0.5})`;
-        ctx.lineWidth = 2; // было 1
+        ctx.lineWidth = variant === 'panel' ? 2.1 : 2;
         ctx.beginPath();
         ctx.moveTo(center.x, center.y);
         ctx.lineTo(x, y);
