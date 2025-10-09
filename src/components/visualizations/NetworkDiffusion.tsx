@@ -31,7 +31,8 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
 
     const particles = Array.from({ length: variant === 'panel' ? 90 : 120 }, () => ({
       angle: Math.random() * Math.PI * 2,
-      distance: Math.random() * (Math.min(width, height) / 2 - 50) + 50,
+      // слегка расширяем зону распределения (раньше -50) чтобы анимация казалась больше
+      distance: Math.random() * (Math.min(width, height) / 2 - 20) + 20,
       speed: Math.random() * 0.002 + 0.001,
       phase: Math.random() * Math.PI * 2,
     }));
@@ -45,13 +46,26 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
       ctx.clearRect(0, 0, width, height);
 
       const pulse = Math.sin(tick * 0.05) * 2 + 8;
-      const gradient = ctx.createRadialGradient(center.x, center.y, 0, center.x, center.y, variant === 'panel' ? Math.min(width, height) * 0.6 : 250);
+      const gradient = ctx.createRadialGradient(
+        center.x,
+        center.y,
+        0,
+        center.x,
+        center.y,
+        variant === 'panel' ? Math.min(width, height) * 0.65 : 320 // было 0.6 : 250
+      );
       gradient.addColorStop(0, 'rgba(170,0,255,0.55)');
       gradient.addColorStop(0.4, 'rgba(110,0,180,0.25)');
       gradient.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(center.x, center.y, (variant === 'panel' ? Math.min(width, height) * 0.45 : 200) + pulse * 2, 0, Math.PI * 2);
+      ctx.arc(
+        center.x,
+        center.y,
+        (variant === 'panel' ? Math.min(width, height) * 0.7 : 250) + pulse * 2, // было 0.45 : 200
+        0,
+        Math.PI * 2
+      );
       ctx.fill();
 
       particles.forEach((p) => {
@@ -61,7 +75,7 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
 
         const alpha = Math.max(0, 1 - p.distance / (Math.min(width, height) / 2));
         ctx.strokeStyle = `rgba(170,0,255,${alpha * 0.5})`;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2; // было 1
         ctx.beginPath();
         ctx.moveTo(center.x, center.y);
         ctx.lineTo(x, y);
