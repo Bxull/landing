@@ -41,8 +41,8 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
 
     const draw = () => {
       if (!ctx) return;
-      ctx.fillStyle = variant === 'panel' ? 'rgba(10,0,25,0.25)' : 'rgba(10,0,20,0.15)';
-      ctx.fillRect(0, 0, width, height);
+      // Удаляем заливку задника: делаем холст прозрачным каждый кадр
+      ctx.clearRect(0, 0, width, height);
 
       const pulse = Math.sin(tick * 0.05) * 2 + 8;
       const gradient = ctx.createRadialGradient(center.x, center.y, 0, center.x, center.y, variant === 'panel' ? Math.min(width, height) * 0.6 : 250);
