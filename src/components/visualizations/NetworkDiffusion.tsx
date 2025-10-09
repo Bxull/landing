@@ -87,6 +87,15 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         ctx.fill();
       });
 
+      // Статичная белая центральная точка поверх всех линий
+      ctx.beginPath();
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(255,255,255,0.9)';
+      ctx.shadowBlur = 14;
+      ctx.arc(center.x, center.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
       tick++;
       animationId = requestAnimationFrame(draw);
     };
