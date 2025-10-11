@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
-  { href: '#about', label: 'About' },
-  { href: '#careers', label: 'Careers' },
-  { href: '#blogs', label: 'Blogs' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#contact', label: 'Contact Us' },
+  { href: '#how', label: 'как это работает' },
+  { href: '#demo', label: 'демо' },
+  { href: '#team', label: 'о нас' },
 ];
 
 export function Header() {
@@ -27,67 +26,145 @@ export function Header() {
   }, [open]);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={
-        `fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b 
-        ${scrolled ? 'bg-[#0b0713]/85 backdrop-blur-md border-violet-900/40 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.4)]' : 'bg-transparent border-transparent'} `
+        `fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b 
+        ${scrolled
+          ? 'bg-black/90 backdrop-blur-xl border-purple-500/20 shadow-[0_8px_32px_-8px_rgba(168,85,247,0.3)]'
+          : 'bg-transparent border-transparent'
+        }`
       }
     >
-      <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
-        <a href="#" className="text-lg font-semibold tracking-tight text-white flex items-center gap-2">
-          <span className="relative">
-            <span className="absolute inset-0 blur-sm bg-gradient-to-r from-fuchsia-500 to-violet-500 opacity-60 rounded" />
-            <span className="relative px-2 py-1 rounded bg-gradient-to-r from-fuchsia-600 to-violet-600 text-xs font-bold uppercase tracking-wider text-white">D</span>
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <motion.a
+          href="#"
+          className="text-2xl font-black tracking-tight text-white flex items-center gap-3 group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300">
+            diffuz.io
           </span>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-fuchsia-300">Diffuzio</span>
-        </a>
+        </motion.a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {links.map(l => (
-            <a
+        <nav className="hidden md:flex items-center gap-2">
+          {links.map((l, idx) => (
+            <motion.a
               key={l.href}
               href={l.href}
-              className="relative text-violet-200/70 hover:text-white transition-colors group"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 + 0.3 }}
+              className="relative px-6 py-2.5 text-sm font-medium text-white/60 hover:text-white transition-colors group"
             >
               {l.label}
-              <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-fuchsia-400 to-violet-400 transition-all duration-300 group-hover:w-full" />
-            </a>
+              <motion.span
+                className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 group-hover:w-full transition-all duration-300"
+                whileHover={{ width: "100%" }}
+              />
+
+              {/* Glow effect on hover */}
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-cyan-500/0 group-hover:from-purple-500/10 group-hover:via-pink-500/10 group-hover:to-cyan-500/10 transition-all duration-300 -z-10" />
+            </motion.a>
           ))}
+
+          {/* CTA Button */}
+          <motion.a
+            href="#contact"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="ml-4 relative group"
+          >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 opacity-70 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 text-white text-sm font-semibold">
+              связаться
+            </div>
+          </motion.a>
         </nav>
 
         {/* Mobile toggle */}
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           aria-label="Toggle navigation"
           onClick={() => setOpen(o => !o)}
-          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-violet-500/30 text-violet-200 hover:bg-violet-800/30 transition-colors"
+          className="md:hidden relative inline-flex items-center justify-center w-12 h-12 rounded-xl border border-purple-500/30 text-white hover:bg-purple-500/10 transition-colors overflow-hidden group"
         >
           <span className="sr-only">Menu</span>
-          <div className="space-y-1.5">
-            <span className={`block h-0.5 w-5 bg-current transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
-            <span className={`block h-0.5 w-5 bg-current transition-opacity ${open ? 'opacity-0' : 'opacity-100'}`} />
-            <span className={`block h-0.5 w-5 bg-current transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+          <div className="relative z-10 flex flex-col items-center justify-center gap-1.5">
+            <motion.span
+              className="block h-0.5 w-6 bg-current rounded-full"
+              animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="block h-0.5 w-6 bg-current rounded-full"
+              animate={open ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="block h-0.5 w-6 bg-current rounded-full"
+              animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.2 }}
+            />
           </div>
-        </button>
+
+          {/* Hover glow */}
+          <span className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:to-cyan-500/20 transition-all duration-300" />
+        </motion.button>
       </div>
 
       {/* Mobile panel */}
-      <div
-        className={`md:hidden transition-[max-height,opacity] duration-400 overflow-hidden backdrop-blur-md bg-[#0b0713]/92 border-t border-violet-900/40 ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
-      >
-        <nav className="flex flex-col px-6 py-4 gap-4 text-sm font-medium">
-          {links.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-violet-200/80 hover:text-white transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden backdrop-blur-xl bg-black/95 border-t border-purple-500/20"
+          >
+            <nav className="flex flex-col px-6 py-6 gap-1">
+              {links.map((l, idx) => (
+                <motion.a
+                  key={l.href}
+                  href={l.href}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: idx * 0.1 }}
+                  onClick={() => setOpen(false)}
+                  className="relative px-4 py-3 text-base font-medium text-white/70 hover:text-white transition-colors rounded-lg hover:bg-purple-500/10 group"
+                >
+                  <span className="relative z-10">{l.label}</span>
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-purple-400 to-cyan-400 group-hover:h-8 transition-all duration-300 rounded-full" />
+                </motion.a>
+              ))}
+
+              {/* Mobile CTA */}
+              <motion.a
+                href="#contact"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                onClick={() => setOpen(false)}
+                className="mt-4 relative group"
+              >
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 opacity-70 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 text-white text-base font-semibold text-center">
+                  связаться
+                </div>
+              </motion.a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

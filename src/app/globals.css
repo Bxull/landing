@@ -1,3 +1,5 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+
 @import 'tailwindcss';
 
 :root {
@@ -8,8 +10,7 @@
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+	--font-sans: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,24 +23,27 @@
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-sans);
+	letter-spacing: -0.01em;
 }
 
-/* Hero gradient background (легкий, без тяжелых изображений) */
 .hero-bg-gradient {
-  position: absolute; inset: 0; z-index: -2; pointer-events: none;
-  background:
-    radial-gradient(ellipse at 18% 40%, rgba(160,60,255,0.60) 0%, rgba(110,30,210,0.40) 26%, rgba(60,0,140,0.18) 46%, rgba(35,0,80,0.08) 60%, rgba(20,0,40,0.02) 72%, transparent 78%),
-    radial-gradient(circle at 82% 25%, rgba(140,0,255,0.38) 0%, rgba(90,0,200,0.18) 28%, transparent 55%),
-    linear-gradient(115deg, #0a0612 0%, #070310 55%, #05020b 100%);
-  background-blend-mode: screen, normal, normal;
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	pointer-events: none;
+	background:
+		radial-gradient(ellipse at 18% 40%, rgba(160, 60, 255, 0.60) 0%, rgba(110, 30, 210, 0.40) 26%, rgba(60, 0, 140, 0.18) 46%, rgba(35, 0, 80, 0.08) 60%, rgba(20, 0, 40, 0.02) 72%, transparent 78%),
+		radial-gradient(circle at 82% 25%, rgba(140, 0, 255, 0.38) 0%, rgba(90, 0, 200, 0.18) 28%, transparent 55%),
+		linear-gradient(115deg, #0a0612 0%, #070310 55%, #05020b 100%);
+	background-blend-mode: screen, normal, normal;
 }
-.hero-bg-noise {
-  position: absolute; inset:0; z-index:-1; pointer-events:none; opacity:0.15; mix-blend-mode:overlay;
-  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIUlEQVQoU2NkYGD4z0AEMDGqAkYGBob/IT4axIJRMA0Gw0kAABhYQz4s46tZQAAAABJRU5ErkJggg==");
-  background-size:128px 128px; image-rendering:pixelated;
-}
+
 .hero-vignette::after {
-  content:""; position:absolute; inset:0; pointer-events:none; z-index:-1;
-  background:radial-gradient(circle at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.35) 100%);
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	background: radial-gradient(circle at 50% 55%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.35) 100%);
 }

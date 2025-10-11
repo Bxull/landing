@@ -1,8 +1,13 @@
+"use client"
+
 import { FeaturesSection } from '@/components/sections/FeaturesSection'
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { CTASection } from '@/components/sections/CTASection'
-import { SiteFooter } from '@/components/sections/SiteFooter'
 import HeroSplit from '@/components/sections/HeroSplit'
+import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
+import SocialTicker from '@/components/sections/MediaScroll'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
+import SocialNetworkGraph from '@/components/sections/SocialNetworkGraph'
+import CTASection from '@/components/sections/CTASection'
+import Footer from '@/components/sections/SiteFooter'
 
 export default function LandingPage() {
 	return (
@@ -10,9 +15,12 @@ export default function LandingPage() {
 			{/* Split Hero: текст слева, анимация справа */}
 			<HeroSplit />
 			<FeaturesSection />
+			<SocialTicker />
 			<TestimonialsSection />
+			<HowItWorksSection />
+			<SocialNetworkGraph />
 			<CTASection />
-			<SiteFooter />
+			<Footer />
 		</main>
 	)
 }

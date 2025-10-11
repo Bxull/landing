@@ -45,12 +45,11 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
     const draw = () => {
       if (!ctx) return;
       frame++;
-      if (variant === 'panel' && frame % 2 === 0) { // простой пропуск каждого второго кадра ~30fps
+      if (variant === 'panel' && frame % 2 === 0) { 
         animationId = requestAnimationFrame(draw);
         return;
       }
 
-      // Удаляем заливку задника: делаем холст прозрачным каждый кадр
       ctx.clearRect(0, 0, width, height);
 
       const pulse = Math.sin(tick * 0.05) * 2 + 8;
@@ -60,17 +59,17 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         0,
         center.x,
         center.y,
-        variant === 'panel' ? Math.min(width, height) * 0.65 : 320 // было 0.6 : 250
+        variant === 'panel' ? Math.min(width, height) * 0.65 : 320 
       );
-      gradient.addColorStop(0, 'rgba(170,0,255,0.55)');
-      gradient.addColorStop(0.4, 'rgba(110,0,180,0.25)');
-      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      // gradient.addColorStop(0, 'rgba(170,0,255,0.55)');
+      // gradient.addColorStop(0.4, 'rgba(110,0,180,0.25)');
+      // gradient.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(
         center.x,
         center.y,
-        (variant === 'panel' ? Math.min(width, height) * 0.7 : 250) + pulse * 2, // было 0.45 : 200
+        (variant === 'panel' ? Math.min(width, height) * 0.7 : 250) + pulse * 2, 
         0,
         Math.PI * 2
       );
@@ -125,11 +124,11 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
   }, [variant]);
 
   return (
-    <div ref={containerRef} className={variant === 'full' ? `relative w-full h-screen bg-gradient-to-b from-purple-950 to-black overflow-hidden ${className}` : `relative w-full h-full overflow-hidden ${className}`}>
+    <div ref={containerRef} className={variant === 'full' ? `relative w-full h-screen overflow-hidden ${className}` : `relative w-full h-full overflow-hidden ${className}`}>
       <canvas ref={canvasRef} className="absolute inset-0" />
       {variant === 'full' && (
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6">
-          <h1 className="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-fuchsia-600 animate-pulse">
+          <h1 className="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r animate-pulse">
             Diffuzio
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
