@@ -56,10 +56,10 @@ export function Header() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Image src="/logo.svg" alt="diffuz.io" width={40} height={40} className="rounded-lg" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300">
+          <Image src="/logo_white.png" alt="diffuz.io" width={50} height={50} />
+          {/* <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300">
             diffuz.io
-          </span>
+          </span> */}
         </motion.a>
 
         <nav className="hidden md:flex items-center gap-2">
@@ -270,7 +270,7 @@ export function Header() {
                 </a>
 
                 <a
-                  href="mailto:contact@diffuz.io"
+                  href="mailto:info@diffuz.io"
                   className="flex items-center gap-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-purple-500/20 group"
                 >
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
@@ -281,7 +281,7 @@ export function Header() {
                   </div>
                   <div>
                     <div className="font-medium text-white group-hover:text-pink-300 transition-colors">Email</div>
-                    <div className="text-sm text-white/60">contact@diffuz.io</div>
+                    <div className="text-sm text-white/60">info@diffuz.io</div>
                   </div>
                 </a>
               </div>
