@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Heart, MessageCircle, Share2, Linkedin, Twitter, Instagram, Facebook, Send, Repeat2, Bookmark, Sparkles } from "lucide-react";
+import { Heart, MessageCircle, Share2, Linkedin, Twitter, Instagram, Facebook, Send, Repeat2, Bookmark } from "lucide-react";
+import { useLocale } from "@/components/LocaleContext";
 
 interface Post {
     id: string;
@@ -21,6 +22,7 @@ export default function DiffuzioScrollPosts() {
     const [scrollY, setScrollY] = useState(0);
     const [expandedPosts, setExpandedPosts] = useState<Set<string>>(new Set());
     const containerRef = useRef<HTMLDivElement>(null);
+    const { locale, setLocale, t } = useLocale();
 
     const posts: Post[] = [
         { id: "1", platform: "linkedin", content: "We all know how important it is to come together as a team to shape the future of our work. Today, we held a strategic session with everyone involved — developers, sales, marketing, and founders. It's truly amazing to see how different perspectives merge during brainstorming, sparking new ideas and questions. Our developers presented updated functionality. The innovations are truly impressive — fresh solutions that no one else has yet. I can't reveal all the details, but it's definitely something special. Beyond the product discussion, we outlined our next strategic direction, set ambitious goals, and celebrated our birthday stars — Assem and Saltanat. Moments like these remind us how important it is to combine achievements with team spirit. The takeaway? Success is a shared journey built on creativity, collaboration, and clear goals. I'm excited for what lies ahead and confident that together, we'll achieve great things! Let's keep moving forward and creating! .", likes: 234, comments: 45, shares: 67, avatar: "АП", name: "diffoz.io", role: "", time: "2ч", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" },
@@ -33,7 +35,6 @@ export default function DiffuzioScrollPosts() {
         { id: "8", platform: "linkedin", content: "Инсайты с Web Summit — главный тренд 2025: аутентичность 🎤", likes: 567, comments: 89, shares: 134, avatar: "ОЛ", name: "Ольга Лебедева", role: "CMO", time: "12ч", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop" },
     ];
 
-    // Для мобилки показываем только первые 5 постов
     const mobilePosts = posts.slice(0, 5);
 
     const column1Posts = [...posts.slice(0, 3), ...posts.slice(0, 3), ...posts.slice(0, 3)];
@@ -55,13 +56,11 @@ export default function DiffuzioScrollPosts() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Функция для обрезки текста
     const truncateText = (text: string, maxLength: number) => {
         if (text.length <= maxLength) return text;
         return text.slice(0, maxLength).trim() + "...";
     };
 
-    // Функция для переключения раскрытия поста
     const toggleExpanded = (postId: string, idx: number) => {
         const uniqueId = `${postId}-${idx}`;
         setExpandedPosts(prev => {
@@ -108,7 +107,7 @@ export default function DiffuzioScrollPosts() {
                                 onClick={() => toggleExpanded(post.id, idx)}
                                 className="text-blue-600 hover:text-blue-700 font-medium ml-2 transition-colors"
                             >
-                                {isExpanded ? "Скрыть" : "Ещё"}
+                                {isExpanded ? `${t("SociallinkedinHide")}` : `${t("SociallinkedinMore")}`}
                             </button>
                         )}
                     </p>
@@ -117,15 +116,15 @@ export default function DiffuzioScrollPosts() {
                     <img src={post.image} alt="Post" className="w-full h-56 object-cover" />
                 )}
                 <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600 border-b border-gray-200">
-                    <span className="font-medium">{post.likes} реакций</span>
-                    <span>{post.comments} комментариев</span>
+                    <span className="font-medium">{post.likes} {t("SociallinkedinReactions")}</span>
+                    <span>{post.comments} {t("SociallinkedinComments")}</span>
                 </div>
                 <div className="px-4 py-3 flex items-center justify-around">
                     <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <Heart className="w-5 h-5" /> Нравится
+                        <Heart className="w-5 h-5" /> {t("SociallinkedinLike")}
                     </button>
                     <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <MessageCircle className="w-5 h-5" /> Комментировать
+                        <MessageCircle className="w-5 h-5" /> {t("SociallinkedinComment")}
                     </button>
                 </div>
             </div>
@@ -165,7 +164,7 @@ export default function DiffuzioScrollPosts() {
                                 onClick={() => toggleExpanded(post.id, idx)}
                                 className="text-blue-500 hover:text-blue-600 font-medium ml-2 transition-colors"
                             >
-                                {isExpanded ? "Показать меньше" : "Показать больше"}
+                                {isExpanded ? `${t("SocialtwitterShowLess")}` : `${t("SocialtwitterShowMore")}`}
                             </button>
                         )}
                     </p>
@@ -228,7 +227,7 @@ export default function DiffuzioScrollPosts() {
                         <Send className="w-7 h-7 cursor-pointer hover:text-gray-500 transition-colors" />
                         <Bookmark className="w-7 h-7 cursor-pointer hover:text-gray-500 transition-colors ml-auto" />
                     </div>
-                    <div className="font-bold text-base mb-2">{post.likes.toLocaleString()} отметок "Нравится"</div>
+                    <div className="font-bold text-base mb-2">{post.likes.toLocaleString()} {t("SocialinstagramLikes")}</div>
                     <p className="text-base">
                         <span className="font-bold mr-2">{post.name.toLowerCase().replace(' ', '_')}</span>
                         {displayContent}
@@ -237,12 +236,12 @@ export default function DiffuzioScrollPosts() {
                                 onClick={() => toggleExpanded(post.id, idx)}
                                 className="text-gray-500 hover:text-gray-700 font-medium ml-1 transition-colors"
                             >
-                                {isExpanded ? "меньше" : "ещё"}
+                                {isExpanded ? `${t("SocialinstagramLess")}` : `${t("SocialinstagramMore")}`}
                             </button>
                         )}
                     </p>
-                    <div className="text-gray-500 text-sm mt-2">Посмотреть все комментарии ({post.comments})</div>
-                    <div className="text-gray-400 text-xs mt-1 uppercase">{post.time} назад</div>
+                    <div className="text-gray-500 text-sm mt-2">{t("SocialinstagramViewComments")} ({post.comments})</div>
+                    <div className="text-gray-400 text-xs mt-1 uppercase">{post.time} {t("SocialinstagramAgo")}</div>
                 </div>
             </div>
         );
@@ -279,7 +278,7 @@ export default function DiffuzioScrollPosts() {
                                 onClick={() => toggleExpanded(post.id, idx)}
                                 className="text-blue-600 hover:text-blue-700 font-medium ml-2 transition-colors"
                             >
-                                {isExpanded ? "Скрыть" : "Подробнее"}
+                                {isExpanded ? `${t("SocialfacebookHide")}` : `${t("SocialfacebookMore")}`}
                             </button>
                         )}
                     </p>
@@ -289,14 +288,14 @@ export default function DiffuzioScrollPosts() {
                 )}
                 <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600 border-y border-gray-200">
                     <span className="font-medium">👍❤️ {post.likes}</span>
-                    <span>{post.comments} комментариев</span>
+                    <span>{post.comments} {t("SocialfacebookComments")}</span>
                 </div>
                 <div className="px-4 py-3 flex items-center justify-around">
                     <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <Heart className="w-5 h-5" /> Нравится
+                        <Heart className="w-5 h-5" /> {t("SocialfacebookLike")}
                     </button>
                     <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <MessageCircle className="w-5 h-5" /> Комментировать
+                        <MessageCircle className="w-5 h-5" /> {t("SocialfacebookComment")}
                     </button>
                 </div>
             </div>
@@ -324,11 +323,10 @@ export default function DiffuzioScrollPosts() {
             <div className="relative z-10 py-20 pb-32">
                 <div className="sticky top-20 left-0 right-0 z-20 text-center mb-20 pointer-events-none">
                     <h1 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent leading-tight px-4">
-                        Посты говорят за нас
+                        {t("SocialfacebookComment")}
                     </h1>
                     <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed px-4">
-                        Реальные истории наших сотрудников в соцсетях.<br />
-                        Аутентичность, которая вдохновляет.
+                         {t("SocialsectionSubtitle")}
                     </p>
                 </div>
 

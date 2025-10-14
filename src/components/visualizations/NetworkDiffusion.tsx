@@ -17,23 +17,42 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const dpr = window.devicePixelRatio || 1;
+
     const computeSize = () => {
       if (variant === 'panel') {
         const rect = container.getBoundingClientRect();
-        return { w: (canvas.width = rect.width), h: (canvas.height = rect.height) };
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        return { w: rect.width * dpr, h: rect.height * dpr };
       }
-      return { w: (canvas.width = window.innerWidth), h: (canvas.height = window.innerHeight) };
+
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      return { w: window.innerWidth * dpr, h: window.innerHeight * dpr };
     };
 
     let { w: width, h: height } = computeSize();
 
-    const center = { x: width / 2, y: height / 2, radius: 6 };
+    ctx.scale(dpr, dpr);
+
+    const center = {
+      x: width / (2 * dpr),
+      y: height / (2 * dpr),
+      radius: 6
+    };
 
     const particles = Array.from({ length: variant === 'panel' ? 80 : 120 }, () => ({
       angle: Math.random() * Math.PI * 2,
       distance: variant === 'panel'
-        ? Math.random() * (Math.min(width, height) * 0.55) + 30
-        : Math.random() * (Math.min(width, height) / 2 - 20) + 20,
+        ? Math.random() * (Math.min(width / dpr, height / dpr) * 0.55) + 30
+        : Math.random() * (Math.min(width / dpr, height / dpr) / 2 - 20) + 20,
       speed: Math.random() * 0.0016 + 0.0008,
       phase: Math.random() * Math.PI * 2,
     }));
@@ -41,16 +60,15 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
     let tick = 0;
     let frame = 0;
     let animationId: number;
-
     const draw = () => {
       if (!ctx) return;
       frame++;
-      if (variant === 'panel' && frame % 2 === 0) { 
+      if (variant === 'panel' && frame % 2 === 0) {
         animationId = requestAnimationFrame(draw);
         return;
       }
 
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width / dpr, height / dpr);
 
       const pulse = Math.sin(tick * 0.05) * 2 + 8;
       const gradient = ctx.createRadialGradient(
@@ -59,7 +77,7 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         0,
         center.x,
         center.y,
-        variant === 'panel' ? Math.min(width, height) * 0.65 : 320 
+        variant === 'panel' ? Math.min(width / dpr, height / dpr) * 0.65 : 320
       );
       // gradient.addColorStop(0, 'rgba(170,0,255,0.55)');
       // gradient.addColorStop(0.4, 'rgba(110,0,180,0.25)');
@@ -69,7 +87,7 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
       ctx.arc(
         center.x,
         center.y,
-        (variant === 'panel' ? Math.min(width, height) * 0.7 : 250) + pulse * 2, 
+        (variant === 'panel' ? Math.min(width / dpr, height / dpr) * 0.7 : 250) + pulse * 2,
         0,
         Math.PI * 2
       );
@@ -80,7 +98,7 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         const x = center.x + Math.cos(p.angle + Math.sin(tick * 0.01 + p.phase)) * p.distance;
         const y = center.y + Math.sin(p.angle + Math.cos(tick * 0.01 + p.phase)) * p.distance;
 
-        const alpha = Math.max(0, 1 - p.distance / (Math.min(width, height) / 2));
+        const alpha = Math.max(0, 1 - p.distance / (Math.min(width / dpr, height / dpr) / 2));
         if (alpha < 0.07) return; // отсечь почти невидимые дальние линии
         ctx.strokeStyle = `rgba(170,0,255,${alpha * 0.5})`;
         ctx.lineWidth = variant === 'panel' ? 2.1 : 2;
@@ -95,7 +113,6 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
         ctx.fill();
       });
 
-      // Статичная белая центральная точка поверх всех линий
       ctx.beginPath();
       ctx.fillStyle = '#ffffff';
       ctx.shadowColor = 'rgba(255,255,255,0.9)';
@@ -112,8 +129,9 @@ export default function NetworkDiffusion({ variant = 'full', className = '' }: N
 
     const handleResize = () => {
       ({ w: width, h: height } = computeSize());
-      center.x = width / 2;
-      center.y = height / 2;
+      center.x = width / (2 * dpr);
+      center.y = height / (2 * dpr);
+      ctx.scale(dpr, dpr); 
     };
 
     window.addEventListener('resize', handleResize);

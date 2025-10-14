@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
+import { LocaleProvider } from "@/components/LocaleContext";
+
 
 export const metadata: Metadata = {
   title: "Diffuz.io — Платформа амбасадоров бренда",
@@ -37,8 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main>{children}</main>
+        <LocaleProvider>
+          <Header />
+          <main>{children}</main>
+        </LocaleProvider>
       </body>
     </html>
   );

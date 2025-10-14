@@ -1,16 +1,18 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const links = [
-  { href: '#how', label: 'как это работает' },
-  { href: '#contact', label: 'демо' },
-  { href: '#team', label: 'о нас' },
-];
+import { useLocale } from "@/components/LocaleContext";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { locale, setLocale, t } = useLocale();
+
+  const links = [
+    { href: '#how', label: t("how") },
+    { href: '#contact', label: t("contact") },
+    { href: '#team', label: t("team") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -39,7 +41,6 @@ export function Header() {
       }
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
         <motion.a
           href="#"
           className="text-2xl font-black tracking-tight text-white flex items-center gap-3 group"
@@ -51,7 +52,6 @@ export function Header() {
           </span>
         </motion.a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-2">
           {links.map((l, idx) => (
             <motion.a
@@ -63,12 +63,10 @@ export function Header() {
               className="relative px-6 py-2.5 text-sm font-medium text-white/60 hover:text-white transition-colors group"
             >
               {l.label}
-              {/* Glow effect on hover */}
               <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-cyan-500/20 transition-all duration-300 -z-10" />
             </motion.a>
           ))}
 
-          {/* CTA Button */}
           <motion.a
             href="https://t.me/diffuzio"
             target="_blank"
@@ -82,12 +80,23 @@ export function Header() {
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 opacity-70 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 text-white text-sm font-semibold">
-              связаться
+              {t("contact")}
             </div>
           </motion.a>
+
+          <div className="ml-4 flex gap-2">
+            {["en", "ru", "kz"].map(l => (
+              <button
+                key={l}
+                onClick={() => setLocale(l as any)}
+                className={`px-2 py-1 rounded ${locale === l ? "bg-purple-600 text-white" : "bg-white/20 text-white"}`}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </nav>
 
-        {/* Mobile toggle */}
         <motion.button
           whileTap={{ scale: 0.9 }}
           aria-label="Toggle navigation"
@@ -113,12 +122,10 @@ export function Header() {
             />
           </div>
 
-          {/* Hover glow */}
           <span className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:to-cyan-500/20 transition-all duration-300" />
         </motion.button>
       </div>
 
-      {/* Mobile panel */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -142,7 +149,6 @@ export function Header() {
                   <span className="relative z-10">{l.label}</span>
                 </motion.a>
               ))}
-              {/* Mobile CTA */}
               <motion.a
                 href="#contact"
                 initial={{ y: 20, opacity: 0 }}
@@ -153,7 +159,7 @@ export function Header() {
               >
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 opacity-70 blur-lg group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 text-white text-base font-semibold text-center">
-                  связаться
+                  {t("contact")}
                 </div>
               </motion.a>
             </nav>

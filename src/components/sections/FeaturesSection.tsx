@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLocale } from "@/components/LocaleContext";
 
 export function FeaturesSection() {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   const handleVideoClick = () => {
     setIsFullscreen(true);
@@ -56,11 +58,11 @@ export function FeaturesSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          когда{" "}
+          {t("Feattitle")}{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-300 to-violet-400">
-            сотрудники
+            {t("FeattitleHighlight")}
           </span>{" "}
-          делятся контентом от имени бренда — доверие растёт, а охваты становятся органическими.
+          {t("FeattitleEnd")}
         </motion.h2>
 
         <motion.div
@@ -102,7 +104,7 @@ export function FeaturesSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          демо: как работает штаб амбассадоров
+          {t("Featdemo")}
         </motion.p>
       </div>
     </section>

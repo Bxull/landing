@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import NetworkDiffusion from "@/components/visualizations/NetworkDiffusion";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useLocale } from "@/components/LocaleContext";
 
 export const HeroSplit: React.FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   const handleButtonClick = () => {
     setIsLoading(true);
@@ -31,16 +33,15 @@ export const HeroSplit: React.FC = () => {
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
             <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black leading-[1.05] tracking-tight text-white mb-8">
-              бренд звучит <br />
-              когда говорит{" "}
+              {t("SplittitleLine1")} <br />
+              {t("SplittitleLine2")}{" "}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-300 to-violet-400 drop-shadow-[0_0_25px_rgba(200,100,255,0.25)]">
-                команда
+                {t("SplittitleHighlight")}
               </span>
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-violet-100/80 leading-relaxed mb-10 max-w-lg">
-              превращаем сотрудников в амбассадоров — идеи распространяются по
-              сети
+              {t("Splitsubtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -51,7 +52,7 @@ export const HeroSplit: React.FC = () => {
               >
                 {isLoading ? (
                   <>
-                    <span className="opacity-0">посмотреть, как это работает →</span>
+                    <span className="opacity-0">{t("Splitbutton")}</span>
                     <span className="absolute inset-0 flex items-center justify-center">
                       <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -60,7 +61,7 @@ export const HeroSplit: React.FC = () => {
                     </span>
                   </>
                 ) : (
-                  "посмотреть, как это работает →"
+                  `${t("Splitbutton")}`
                 )}
               </button>
             </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLocale } from "@/components/LocaleContext";
 
 export default function Footer({ scrollToSection, refs }: any) {
+  const { locale, setLocale, t } = useLocale();
+
   return (
     <footer className="relative bg-black pt-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-cyan-900/10" />
@@ -31,7 +34,7 @@ export default function Footer({ scrollToSection, refs }: any) {
           transition={{ duration: 0.8 }}
           className="text-2xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 mb-6"
         >
-          бренд звучит громче, когда говорит команда
+          {t("Footertitle")}
         </motion.h3>
 
         <motion.p
@@ -41,19 +44,19 @@ export default function Footer({ scrollToSection, refs }: any) {
           transition={{ duration: 1, delay: 0.2 }}
           className="text-white/50 text-base md:text-lg mb-10"
         >
-          создаём доверие через голоса сотрудников
+          {t("Footersubtitle")}
         </motion.p>
 
         <div className="flex flex-wrap justify-center gap-8 text-white/40 text-sm mb-12">
-          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.howItWorks); }} className="hover:text-white/80 transition">как это работает</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.features); }} className="hover:text-white/80 transition">демо</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.network); }} className="hover:text-white/80 transition">о нас</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.howItWorks); }} className="hover:text-white/80 transition">     {t("FooternavHowItWorks")}</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.features); }} className="hover:text-white/80 transition">     {t("FooternavDemo")}</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection(refs.network); }} className="hover:text-white/80 transition">     {t("FooternavAbout")}</a>
         </div>
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
 
         <div className="text-white/30 text-xs">
-          © {new Date().getFullYear()} diffuz.ai — создано с заботой о брендах
+          © {new Date().getFullYear()}      {t("Footersubtitle")}
         </div>
       </div>
     </footer>

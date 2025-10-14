@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "@/components/LocaleContext";
 
 interface Particle {
   x: number;
@@ -22,6 +23,7 @@ export default function CTASection() {
   const mouseRef = useRef({ x: 0, y: 0 });
   //@ts-ignore
   const animationRef = useRef<number>();
+  const { locale, setLocale, t } = useLocale();
 
   const handleButtonClick = () => {
     setIsLoading(true);
@@ -63,7 +65,6 @@ export default function CTASection() {
       opacity: Math.random() * 0.5 + 0.3,
     }));
 
-    // Отслеживание мыши
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
@@ -76,7 +77,6 @@ export default function CTASection() {
       const particles = particlesRef.current;
 
       particles.forEach((particle, i) => {
-        // Физика: гравитация к мыши
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -88,7 +88,6 @@ export default function CTASection() {
           particle.vy += (dy / distance) * force * 0.1;
         }
 
-        // Отталкивание между частицами
         particles.forEach((other, j) => {
           if (i === j) return;
           const dx = other.x - particle.x;
@@ -102,15 +101,12 @@ export default function CTASection() {
           }
         });
 
-        // Затухание скорости
         particle.vx *= 0.98;
         particle.vy *= 0.98;
 
-        // Обновляем позицию
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Отскок от границ
         if (particle.x < 0 || particle.x > canvas.width) {
           particle.vx *= -0.8;
           particle.x = Math.max(0, Math.min(canvas.width, particle.x));
@@ -120,14 +116,12 @@ export default function CTASection() {
           particle.y = Math.max(0, Math.min(canvas.height, particle.y));
         }
 
-        // Рисуем частицу
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
         ctx.globalAlpha = particle.opacity;
         ctx.fill();
 
-        // Свечение
         ctx.shadowBlur = 15;
         ctx.shadowColor = particle.color;
         ctx.fill();
@@ -135,7 +129,6 @@ export default function CTASection() {
         ctx.globalAlpha = 1;
       });
 
-      // Рисуем связи между близкими частицами
       particles.forEach((particle, i) => {
         particles.slice(i + 1).forEach((other) => {
           const dx = other.x - particle.x;
@@ -169,13 +162,11 @@ export default function CTASection() {
 
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Canvas с частицами */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
       />
 
-      {/* Фоновый градиент */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-cyan-900/20" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
@@ -186,9 +177,9 @@ export default function CTASection() {
           transition={{ duration: 0.8 }}
           className="text-[clamp(2.5rem,6vw,5rem)] font-black leading-tight mb-6"
         >
-          <span className="block text-white/90">бренд звучит,</span>
+          <span className="block text-white/90">{t("CTAtitleLine1")}</span>
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
-            когда говорит команда
+            {t("CTAtitleLine2")}
           </span>
         </motion.h2>
 
@@ -199,7 +190,7 @@ export default function CTASection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-2xl md:text-3xl text-white/60 font-light mb-14"
         >
-          начните сегодня
+          {t("CTAsubtitle")}
         </motion.p>
 
         <motion.button
@@ -224,10 +215,10 @@ export default function CTASection() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                переход на платформу...
+                {t("STAbuttonLoading")}
               </>
             ) : (
-              "посмотреть, как это работает"
+              `${t("STAbuttonDefault")}`
             )}
           </span>
         </motion.button>
@@ -239,7 +230,7 @@ export default function CTASection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mt-8 text-sm text-white/40"
         >
-          никаких обязательств • первая консультация бесплатно
+          {t("STAfooter")}
         </motion.p>
       </div>
 

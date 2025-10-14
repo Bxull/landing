@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { useLocale } from "@/components/LocaleContext";
 
 interface Node {
     id: string;
@@ -17,27 +18,90 @@ interface Link {
 }
 
 export function HowItWorksSection() {
-    const steps = [
-        {
-            title: "создаём штаб амбассадоров",
-            description:
-                "сотрудники подключаются к платформе — начинается внутренняя сеть бренда",
-        },
-        {
-            title: "бренд публикует идеи и посты",
-            description:
-                "контент формируется и адаптируется под стиль и голоса участников",
-        },
-        {
-            title: "сотрудники делятся ими",
-            description:
-                "социальные сети заполняются подлинными сообщениями, энергия бренда растёт",
-        },
-    ];
+    const { locale } = useLocale();
+
+    const getStepsData = () => {
+        if (locale === "ru") {
+            return [
+                {
+                    title: "создаём штаб амбассадоров",
+                    description:
+                        "сотрудники подключаются к платформе — начинается внутренняя сеть бренда",
+                },
+                {
+                    title: "бренд публикует идеи и посты",
+                    description:
+                        "контент формируется и адаптируется под стиль и голоса участников",
+                },
+                {
+                    title: "сотрудники делятся ими",
+                    description:
+                        "социальные сети заполняются подлинными сообщениями, энергия бренда растёт",
+                },
+            ];
+        } else if (locale === "kz") {
+            return [
+                {
+                    title: "елшілер штабын құрамыз",
+                    description:
+                        "қызметкерлер платформаға қосылады — бренд ішкі желісі басталады",
+                },
+                {
+                    title: "бренд идеялар мен посттарды жариялайды",
+                    description:
+                        "контент қатысушылардың стилі мен дауыстарына бейімделеді",
+                },
+                {
+                    title: "қызметкерлер олармен бөліседі",
+                    description:
+                        "әлеуметтік желілер шынайы хабарламалармен толады, бренд энергиясы өседі",
+                },
+            ];
+        } else {
+            return [
+                {
+                    title: "we create an ambassador hub",
+                    description:
+                        "employees join the platform — the brand's internal network begins",
+                },
+                {
+                    title: "brand publishes ideas and posts",
+                    description:
+                        "content is formed and adapted to the style and voices of participants",
+                },
+                {
+                    title: "employees share them",
+                    description:
+                        "social networks are filled with authentic messages, brand energy grows",
+                },
+            ];
+        }
+    };
+
+    const getClosingText = () => {
+        if (locale === "ru") {
+            return "всё просто: бренд говорит — команда усиливает — сеть слышит.";
+        } else if (locale === "kz") {
+            return "бәрі қарапайым: бренд айтады — команда күшейтеді — желі естиді.";
+        } else {
+            return "it's simple: brand speaks — team amplifies — network hears.";
+        }
+    };
+
+    const getTitle = () => {
+        if (locale === "ru") {
+            return "как мы работаем";
+        } else if (locale === "kz") {
+            return "біз қалай жұмыс істейміз";
+        } else {
+            return "how we work";
+        }
+    };
+
+    const steps = getStepsData();
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [nodes] = useState<Node[]>(() => {
-        // Создаём статичный граф: 1 центральный бренд + 8 сотрудников + 12 постов
         const brandNode: Node = {
             id: "brand",
             x: 0,
@@ -69,7 +133,6 @@ export function HowItWorksSection() {
         const employeeNodes = nodes.filter(n => n.type === "employee");
         const postNodes = nodes.filter(n => n.type === "post");
 
-        // Связи: бренд -> сотрудники -> посты
         const brandLinks: Link[] = employeeNodes.map((n) => ({
             source: "brand",
             target: n.id,
@@ -106,7 +169,6 @@ export function HowItWorksSection() {
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Рисуем связи
             links.forEach((link) => {
                 const source = nodes.find((n) => n.id === link.source);
                 const target = nodes.find((n) => n.id === link.target);
@@ -120,7 +182,6 @@ export function HowItWorksSection() {
                 }
             });
 
-            // Рисуем узлы
             nodes.forEach((node) => {
                 ctx.beginPath();
                 ctx.arc(node.x + centerX, node.y + centerY, node.radius, 0, Math.PI * 2);
@@ -180,7 +241,7 @@ export function HowItWorksSection() {
                     transition={{ duration: 0.8 }}
                     className="text-center text-[clamp(2.5rem,6vw,4.5rem)] font-black text-white mb-28"
                 >
-                    как мы работаем
+                    {getTitle()}
                 </motion.h2>
 
                 <div className="relative flex flex-col md:flex-row md:justify-between items-center gap-20 md:gap-16">
@@ -254,10 +315,9 @@ export function HowItWorksSection() {
                     transition={{ duration: 0.8, delay: 0.5 }}
                     className="mt-32 text-center text-2xl md:text-3xl text-white/70"
                 >
-                    всё просто: бренд говорит — команда усиливает — сеть слышит.
+                    {getClosingText()}
                 </motion.p>
             </div>
-
         </section>
     );
 }
