@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Particle {
   x: number;
@@ -14,11 +15,20 @@ interface Particle {
 }
 
 export default function CTASection() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   //@ts-ignore
   const animationRef = useRef<number>();
+
+  const handleButtonClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      router.push("https://my.diffuz.io");
+    }, 1500);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,7 +36,6 @@ export default function CTASection() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     const updateSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -194,8 +203,10 @@ export default function CTASection() {
         </motion.p>
 
         <motion.button
+          onClick={handleButtonClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          disabled={isLoading}
           className="group relative inline-flex items-center justify-center px-12 py-5 text-lg font-bold text-white rounded-full overflow-hidden"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-600 opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
@@ -206,7 +217,19 @@ export default function CTASection() {
             transition={{ duration: 2, repeat: Infinity }}
           />
 
-          <span className="relative z-10">посмотреть, как это работает</span>
+          <span className="relative z-10 flex items-center">
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                переход на платформу...
+              </>
+            ) : (
+              "посмотреть, как это работает"
+            )}
+          </span>
         </motion.button>
 
         <motion.p

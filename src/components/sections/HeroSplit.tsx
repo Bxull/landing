@@ -1,10 +1,21 @@
-"use clinet"
+"use client"
 
-import React from "react";
+import React, { useState } from "react";
 import NetworkDiffusion from "@/components/visualizations/NetworkDiffusion";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export const HeroSplit: React.FC = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      router.push("https://my.diffuz.io");
+    }, 800);
+  };
+
   return (
     <section className="relative h-full isolate pt-28 md:pt-32 pb-24 overflow-hidden hero-vignette">
       <div className="hero-bg-gradient" />
@@ -33,8 +44,24 @@ export const HeroSplit: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8  py-3 cursor-pointer rounded-xl font-semibold text-sm tracking-wide text-white bg-violet-600 transition-all duration-300 shadow-[0_0_25px_rgba(160,60,255,0.3)] hover:shadow-[0_0_45px_rgba(160,60,255,0.6)]">
-                посмотреть, как это работает →
+              <button
+                className="px-8 py-3 cursor-pointer rounded-xl font-semibold text-sm tracking-wide text-white bg-violet-600 transition-all duration-300 shadow-[0_0_25px_rgba(160,60,255,0.3)] hover:shadow-[0_0_45px_rgba(160,60,255,0.6)] relative"
+                onClick={handleButtonClick}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <span className="opacity-0">посмотреть, как это работает →</span>
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                  </>
+                ) : (
+                  "посмотреть, как это работает →"
+                )}
               </button>
             </div>
           </motion.div>

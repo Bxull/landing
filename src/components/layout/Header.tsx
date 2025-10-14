@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
   { href: '#how', label: 'как это работает' },
-  { href: '#demo', label: 'демо' },
+  { href: '#contact', label: 'демо' },
   { href: '#team', label: 'о нас' },
 ];
 
@@ -63,19 +63,16 @@ export function Header() {
               className="relative px-6 py-2.5 text-sm font-medium text-white/60 hover:text-white transition-colors group"
             >
               {l.label}
-              <motion.span
-                className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 group-hover:w-full transition-all duration-300"
-                whileHover={{ width: "100%" }}
-              />
-
               {/* Glow effect on hover */}
-              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-cyan-500/0 group-hover:from-purple-500/10 group-hover:via-pink-500/10 group-hover:to-cyan-500/10 transition-all duration-300 -z-10" />
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-cyan-500/20 transition-all duration-300 -z-10" />
             </motion.a>
           ))}
 
           {/* CTA Button */}
           <motion.a
-            href="#contact"
+            href="https://t.me/diffuzio"
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}
@@ -143,10 +140,8 @@ export function Header() {
                   className="relative px-4 py-3 text-base font-medium text-white/70 hover:text-white transition-colors rounded-lg hover:bg-purple-500/10 group"
                 >
                   <span className="relative z-10">{l.label}</span>
-                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-purple-400 to-cyan-400 group-hover:h-8 transition-all duration-300 rounded-full" />
                 </motion.a>
               ))}
-
               {/* Mobile CTA */}
               <motion.a
                 href="#contact"

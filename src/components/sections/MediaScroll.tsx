@@ -26,6 +26,7 @@ export default function SocialTicker() {
             <motion.div
                 style={{ x }}
                 className="flex gap-12 whitespace-nowrap"
+                initial={{ willChange: "transform" }}
             >
                 {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex gap-12 items-center">
@@ -36,7 +37,9 @@ export default function SocialTicker() {
                                 style={{
                                     transform: `translateY(${(index % socials.length) * 20 - 50}px)`,
                                     marginTop: `${(index % 3) * 15}px`,
-                                    marginBottom: `${(index % 2) * 20}px`
+                                    marginBottom: `${(index % 2) * 20}px`,
+                                    WebkitTransform: `translateY(${(index % socials.length) * 20 - 50}px) translateZ(0)`,
+                                    WebkitBackfaceVisibility: "hidden"
                                 }}
                             >
                                 {social}
