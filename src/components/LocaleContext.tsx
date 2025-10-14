@@ -14,10 +14,20 @@ interface LocaleContextType {
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
 export const LocaleProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      const savedLocale = localStorage.getItem('locale') as Locale;
+      return savedLocale || "en";
+    }
+    return "en";
+  });
   const [translations, setTranslations] = useState<Translations>({});
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('locale', locale);
+    }
+
     fetch(`/locales/locale.${locale}.json`)
       .then(res => res.json())
       .then(data => setTranslations(data))
