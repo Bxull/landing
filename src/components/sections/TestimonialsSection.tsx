@@ -27,7 +27,6 @@ export default function ProblemsSection() {
     "from-rose-600/40 via-pink-500/30",
   ];
 
-  // Получаем категории напрямую из локализации
   const getCategoriesData = () => {
     if (locale === "ru") {
       return [

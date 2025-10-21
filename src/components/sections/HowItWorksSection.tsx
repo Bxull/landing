@@ -221,7 +221,6 @@ export function HowItWorksSection() {
             window.removeEventListener("resize", updateSize);
         };
     }, [nodes, links]);
-
     return (
         <section className="relative py-40 bg-gradient-to-b from-black via-violet-950/30 to-black overflow-hidden">
             {/* Force Graph Background */}
@@ -244,7 +243,7 @@ export function HowItWorksSection() {
                     {getTitle()}
                 </motion.h2>
 
-                <div className="relative flex flex-col md:flex-row md:justify-between items-center gap-20 md:gap-16">
+                <div className="relative grid grid-cols-1 md:grid-cols-3 gap-20 md:gap-16">
                     {steps.map((step, index) => (
                         <motion.div
                             key={index}
@@ -252,22 +251,9 @@ export function HowItWorksSection() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: index * 0.2 }}
-                            className="relative flex-1 max-w-sm"
+                            className="relative flex-1 max-w-sm w-full flex"
                         >
-                            <motion.div
-                                className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-fuchsia-500/20 to-transparent blur-2xl"
-                                animate={{
-                                    opacity: [0.3, 0.6, 0.2],
-                                    scale: [1, 1.05, 1],
-                                }}
-                                transition={{
-                                    duration: 4,
-                                    repeat: Infinity,
-                                    delay: index * 1.2,
-                                }}
-                            />
-
-                            <div className="relative bg-black/70 backdrop-blur-xl border border-white/10 rounded-[2rem] px-10 py-14 text-center">
+                            <div className="relative bg-black/70 backdrop-blur-xl border border-white/10 rounded-[2rem] px-10 py-14 text-center w-full flex flex-col">
                                 <motion.div
                                     className="mb-6 text-[clamp(2rem,3vw,2.75rem)] font-black text-white/80 relative"
                                     animate={{
@@ -281,10 +267,10 @@ export function HowItWorksSection() {
                                 >
                                     0{index + 1}
                                 </motion.div>
-                                <h3 className="text-2xl font-semibold text-white mb-3">
+                                <h3 className="text-2xl font-semibold text-white mb-3 flex-grow-0">
                                     {step.title}
                                 </h3>
-                                <p className="text-white/60 text-lg leading-relaxed">
+                                <p className="text-white/60 text-lg leading-relaxed flex-grow">
                                     {step.description}
                                 </p>
                             </div>

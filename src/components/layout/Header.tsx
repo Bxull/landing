@@ -11,7 +11,7 @@ export function Header() {
   const { locale, setLocale, t } = useLocale();
 
   const links = [
-    { href: '#demo', label: t("demo") },
+    { href: 'https://my.diffuz.io', label: t("demo") },
   ];
 
   useEffect(() => {
@@ -31,6 +31,17 @@ export function Header() {
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
   }, [open, contactOpen]);
+
+  useEffect(() => {
+    if (contactOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [contactOpen]);
 
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -57,9 +68,6 @@ export function Header() {
           whileTap={{ scale: 0.95 }}
         >
           <Image src="/logo_white.png" alt="diffuz.io" width={50} height={50} />
-          {/* <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300">
-            diffuz.io
-          </span> */}
         </motion.a>
 
         <nav className="hidden md:flex items-center gap-2">
@@ -220,6 +228,7 @@ export function Header() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-gray-900 to-black border border-purple-500/30 rounded-2xl p-6 w-full max-w-md z-50 shadow-[0_0_40px_rgba(168,85,247,0.3)]"
+              style={{ maxHeight: "90vh", overflowY: "auto" }}
             >
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-bold text-white">{t("contact")}</h3>

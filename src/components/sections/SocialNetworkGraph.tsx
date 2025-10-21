@@ -37,9 +37,9 @@ export default function DiffuzioScrollPosts() {
 
     const mobilePosts = posts.slice(0, 5);
 
-    const column1Posts = [...posts.slice(0, 3), ...posts.slice(0, 3), ...posts.slice(0, 3)];
-    const column2Posts = [...posts.slice(3, 6), ...posts.slice(3, 6), ...posts.slice(3, 6)];
-    const column3Posts = [...posts.slice(6, 8), ...posts.slice(6, 8), ...posts.slice(6, 8), ...posts.slice(0, 1)];
+    const column1Posts = [...posts.slice(0, 3), ...posts.slice(0, 3)];
+    const column2Posts = [...posts.slice(3, 6), ...posts.slice(3, 6)];
+    const column3Posts = [...posts.slice(6, 8), ...posts.slice(6, 8)];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -83,24 +83,24 @@ export default function DiffuzioScrollPosts() {
             : post.content;
 
         return (
-            <div className="w-full rounded-xl bg-white text-black shadow-2xl overflow-hidden border border-gray-200 hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300">
-                <div className="p-4 flex items-start gap-3">
+            <div className="w-full rounded-xl bg-white text-black shadow-xl overflow-hidden border border-gray-200 hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300">
+                <div className="p-3 flex items-start gap-3">
                     <div
-                        className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg"
+                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg text-sm"
                         style={{ backgroundColor: "#0A66C2" }}
                     >
                         {post.avatar}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-base">{post.name}</div>
-                        {post.role && <div className="text-sm text-gray-600 leading-tight">{post.role}</div>}
+                        <div className="font-bold text-sm">{post.name}</div>
+                        {post.role && <div className="text-xs text-gray-600 leading-tight">{post.role}</div>}
                         <div className="text-xs text-gray-500 flex items-center gap-1 mt-1">
                             {post.time} • <Linkedin className="w-3 h-3" fill="currentColor" />
                         </div>
                     </div>
                 </div>
-                <div className="px-4 pb-3">
-                    <p className="text-base text-gray-900 leading-relaxed">
+                <div className="px-3 pb-2">
+                    <p className="text-sm text-gray-900 leading-relaxed">
                         {displayContent}
                         {shouldTruncate && (
                             <button
@@ -113,18 +113,18 @@ export default function DiffuzioScrollPosts() {
                     </p>
                 </div>
                 {post.image && (
-                    <img src={post.image} alt="Post" className="w-full h-56 object-cover" />
+                    <img src={post.image} alt="Post" className="w-full h-48 object-cover" />
                 )}
-                <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600 border-b border-gray-200">
+                <div className="px-3 py-2 flex items-center justify-between text-xs text-gray-600 border-b border-gray-200">
                     <span className="font-medium">{post.likes} {t("SociallinkedinReactions")}</span>
                     <span>{post.comments} {t("SociallinkedinComments")}</span>
                 </div>
-                <div className="px-4 py-3 flex items-center justify-around">
-                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <Heart className="w-5 h-5" /> {t("SociallinkedinLike")}
+                <div className="px-3 py-2 flex items-center justify-around">
+                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
+                        <Heart className="w-4 h-4" /> {t("SociallinkedinLike")}
                     </button>
-                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <MessageCircle className="w-5 h-5" /> {t("SociallinkedinComment")}
+                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
+                        <MessageCircle className="w-4 h-4" /> {t("SociallinkedinComment")}
                     </button>
                 </div>
             </div>
@@ -140,24 +140,24 @@ export default function DiffuzioScrollPosts() {
             : post.content;
 
         return (
-            <div className="w-full rounded-2xl bg-white text-black shadow-2xl overflow-hidden border border-gray-200 hover:shadow-blue-400/20 hover:scale-105 transition-all duration-300">
-                <div className="p-4">
-                    <div className="flex items-start gap-3 mb-3">
+            <div className="w-full rounded-2xl bg-white text-black shadow-xl overflow-hidden border border-gray-200 hover:shadow-blue-400/20 hover:scale-105 transition-all duration-300">
+                <div className="p-3">
+                    <div className="flex items-start gap-3 mb-2">
                         <div
-                            className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg"
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg text-sm"
                             style={{ backgroundColor: "#1DA1F2" }}
                         >
                             {post.avatar}
                         </div>
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
-                                <span className="font-bold text-base">{post.name}</span>
-                                <span className="text-gray-500 text-sm">• {post.time}</span>
+                                <span className="font-bold text-sm">{post.name}</span>
+                                <span className="text-gray-500 text-xs">• {post.time}</span>
                             </div>
-                            {post.role && <div className="text-sm text-gray-600">{post.role}</div>}
+                            {post.role && <div className="text-xs text-gray-600">{post.role}</div>}
                         </div>
                     </div>
-                    <p className="text-base text-gray-900 mb-3 leading-relaxed">
+                    <p className="text-sm text-gray-900 mb-2 leading-relaxed">
                         {displayContent}
                         {shouldTruncate && (
                             <button
@@ -169,27 +169,27 @@ export default function DiffuzioScrollPosts() {
                         )}
                     </p>
                     {post.image && (
-                        <img src={post.image} alt="Post" className="w-full h-56 object-cover rounded-2xl border border-gray-200" />
+                        <img src={post.image} alt="Post" className="w-full h-48 object-cover rounded-2xl border border-gray-200" />
                     )}
                 </div>
-                <div className="px-4 pb-4 flex items-center justify-between text-gray-600">
+                <div className="px-3 pb-3 flex items-center justify-between text-gray-600">
                     <button className="flex items-center gap-2 hover:text-pink-600 group transition-colors">
-                        <div className="p-2 rounded-full group-hover:bg-pink-100 transition-colors">
-                            <Heart className="w-5 h-5" />
+                        <div className="p-1.5 rounded-full group-hover:bg-pink-100 transition-colors">
+                            <Heart className="w-4 h-4" />
                         </div>
-                        <span className="text-sm font-medium">{post.likes}</span>
+                        <span className="text-xs font-medium">{post.likes}</span>
                     </button>
                     <button className="flex items-center gap-2 hover:text-blue-600 group transition-colors">
-                        <div className="p-2 rounded-full group-hover:bg-blue-100 transition-colors">
-                            <MessageCircle className="w-5 h-5" />
+                        <div className="p-1.5 rounded-full group-hover:bg-blue-100 transition-colors">
+                            <MessageCircle className="w-4 h-4" />
                         </div>
-                        <span className="text-sm font-medium">{post.comments}</span>
+                        <span className="text-xs font-medium">{post.comments}</span>
                     </button>
                     <button className="flex items-center gap-2 hover:text-green-600 group transition-colors">
-                        <div className="p-2 rounded-full group-hover:bg-green-100 transition-colors">
-                            <Repeat2 className="w-5 h-5" />
+                        <div className="p-1.5 rounded-full group-hover:bg-green-100 transition-colors">
+                            <Repeat2 className="w-4 h-4" />
                         </div>
-                        <span className="text-sm font-medium">{post.shares}</span>
+                        <span className="text-xs font-medium">{post.shares}</span>
                     </button>
                 </div>
             </div>
@@ -205,30 +205,30 @@ export default function DiffuzioScrollPosts() {
             : post.content;
 
         return (
-            <div className="w-full rounded-xl bg-white text-black shadow-2xl overflow-hidden border border-gray-200 hover:shadow-pink-500/20 hover:scale-105 transition-all duration-300">
-                <div className="p-4 flex items-center gap-3 border-b border-gray-100">
+            <div className="w-full rounded-xl bg-white text-black shadow-xl overflow-hidden border border-gray-200 hover:shadow-pink-500/20 hover:scale-105 transition-all duration-300">
+                <div className="p-3 flex items-center gap-3 border-b border-gray-100">
                     <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 shadow-lg"
+                        className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 shadow-lg"
                     >
                         {post.avatar}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-base">{post.name.toLowerCase().replace(' ', '_')}</div>
+                        <div className="font-bold text-sm">{post.name.toLowerCase().replace(' ', '_')}</div>
                         {post.role && <div className="text-xs text-gray-500">{post.role}</div>}
                     </div>
                 </div>
                 {post.image && (
-                    <img src={post.image} alt="Post" className="w-full h-72 object-cover" />
+                    <img src={post.image} alt="Post" className="w-full h-56 object-cover" />
                 )}
-                <div className="p-4">
-                    <div className="flex items-center gap-5 mb-3">
-                        <Heart className="w-7 h-7 cursor-pointer hover:text-red-500 transition-colors" />
-                        <MessageCircle className="w-7 h-7 cursor-pointer hover:text-gray-500 transition-colors" />
-                        <Send className="w-7 h-7 cursor-pointer hover:text-gray-500 transition-colors" />
-                        <Bookmark className="w-7 h-7 cursor-pointer hover:text-gray-500 transition-colors ml-auto" />
+                <div className="p-3">
+                    <div className="flex items-center gap-4 mb-2">
+                        <Heart className="w-6 h-6 cursor-pointer hover:text-red-500 transition-colors" />
+                        <MessageCircle className="w-6 h-6 cursor-pointer hover:text-gray-500 transition-colors" />
+                        <Send className="w-6 h-6 cursor-pointer hover:text-gray-500 transition-colors" />
+                        <Bookmark className="w-6 h-6 cursor-pointer hover:text-gray-500 transition-colors ml-auto" />
                     </div>
-                    <div className="font-bold text-base mb-2">{post.likes.toLocaleString()} {t("SocialinstagramLikes")}</div>
-                    <p className="text-base">
+                    <div className="font-bold text-sm mb-1">{post.likes.toLocaleString()} {t("SocialinstagramLikes")}</div>
+                    <p className="text-sm">
                         <span className="font-bold mr-2">{post.name.toLowerCase().replace(' ', '_')}</span>
                         {displayContent}
                         {shouldTruncate && (
@@ -240,7 +240,7 @@ export default function DiffuzioScrollPosts() {
                             </button>
                         )}
                     </p>
-                    <div className="text-gray-500 text-sm mt-2">{t("SocialinstagramViewComments")} ({post.comments})</div>
+                    <div className="text-gray-500 text-xs mt-1">{t("SocialinstagramViewComments")} ({post.comments})</div>
                     <div className="text-gray-400 text-xs mt-1 uppercase">{post.time} {t("SocialinstagramAgo")}</div>
                 </div>
             </div>
@@ -256,22 +256,22 @@ export default function DiffuzioScrollPosts() {
             : post.content;
 
         return (
-            <div className="w-full rounded-xl bg-white text-black shadow-2xl overflow-hidden border border-gray-200 hover:shadow-blue-600/20 hover:scale-105 transition-all duration-300">
-                <div className="p-4 flex items-start gap-3">
+            <div className="w-full rounded-xl bg-white text-black shadow-xl overflow-hidden border border-gray-200 hover:shadow-blue-600/20 hover:scale-105 transition-all duration-300">
+                <div className="p-3 flex items-start gap-3">
                     <div
-                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg"
+                        className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg text-sm"
                         style={{ backgroundColor: "#0866FF" }}
                     >
                         {post.avatar}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-base">{post.name}</div>
-                        {post.role && <div className="text-sm text-gray-600">{post.role}</div>}
+                        <div className="font-bold text-sm">{post.name}</div>
+                        {post.role && <div className="text-xs text-gray-600">{post.role}</div>}
                         <div className="text-xs text-gray-500 mt-1">{post.time} • 🌐</div>
                     </div>
                 </div>
-                <div className="px-4 pb-3">
-                    <p className="text-base text-gray-900 leading-relaxed">
+                <div className="px-3 pb-2">
+                    <p className="text-sm text-gray-900 leading-relaxed">
                         {displayContent}
                         {shouldTruncate && (
                             <button
@@ -284,18 +284,18 @@ export default function DiffuzioScrollPosts() {
                     </p>
                 </div>
                 {post.image && (
-                    <img src={post.image} alt="Post" className="w-full h-56 object-cover" />
+                    <img src={post.image} alt="Post" className="w-full h-48 object-cover" />
                 )}
-                <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600 border-y border-gray-200">
+                <div className="px-3 py-2 flex items-center justify-between text-xs text-gray-600 border-y border-gray-200">
                     <span className="font-medium">👍❤️ {post.likes}</span>
                     <span>{post.comments} {t("SocialfacebookComments")}</span>
                 </div>
-                <div className="px-4 py-3 flex items-center justify-around">
-                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <Heart className="w-5 h-5" /> {t("SocialfacebookLike")}
+                <div className="px-3 py-2 flex items-center justify-around">
+                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
+                        <Heart className="w-4 h-4" /> {t("SocialfacebookLike")}
                     </button>
-                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                        <MessageCircle className="w-5 h-5" /> {t("SocialfacebookComment")}
+                    <button className="flex items-center gap-2 text-gray-600 hover:bg-gray-100 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors">
+                        <MessageCircle className="w-4 h-4" /> {t("SocialfacebookComment")}
                     </button>
                 </div>
             </div>
@@ -320,19 +320,19 @@ export default function DiffuzioScrollPosts() {
                 <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
             </div>
 
-            <div className="relative z-10 py-20 pb-32">
-                <div className="sticky top-20 left-0 right-0 z-20 text-center mb-20 pointer-events-none">
-                    <h1 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent leading-tight px-4">
+            <div className="relative z-10 py-16 pb-20">
+                <div className="sticky top-20 left-0 right-0 z-20 text-center mb-12 pointer-events-none">
+                    <h1 className="text-3xl md:text-6xl font-black mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent leading-tight px-4">
                         {t("SocialfacebookComment")}
                     </h1>
-                    <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed px-4">
-                         {t("SocialsectionSubtitle")}
+                    <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
+                        {t("SocialsectionSubtitle")}
                     </p>
                 </div>
 
-                <div className="container mx-auto px-6 pb-20">
-                    {/* Мобильная версия - простой список */}
-                    <div className="block md:hidden space-y-6 max-w-lg mx-auto">
+                <div className="container mx-auto px-6 pb-12">
+                    {/* Мобильная версия */}
+                    <div className="block md:hidden space-y-5 max-w-lg mx-auto">
                         {mobilePosts.map((post, idx) => (
                             <div key={`mobile-${post.id}-${idx}`} className="animate-fade-in">
                                 {renderCard(post, idx)}
@@ -340,12 +340,12 @@ export default function DiffuzioScrollPosts() {
                         ))}
                     </div>
 
-                    {/* Десктопная версия - 3 колонки с параллаксом */}
-                    <div className="hidden md:grid grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    {/* Десктопная версия - компактные колонки */}
+                    <div className="hidden md:grid grid-cols-3 gap-6 max-w-6xl mx-auto">
                         <div
-                            className="space-y-8"
+                            className="space-y-6"
                             style={{
-                                transform: `translateY(${scrollY * 600}px)`,
+                                transform: `translateY(${scrollY * 400}px)`,
                                 transition: 'transform 0.05s linear'
                             }}
                         >
@@ -357,9 +357,9 @@ export default function DiffuzioScrollPosts() {
                         </div>
 
                         <div
-                            className="space-y-8"
+                            className="space-y-6"
                             style={{
-                                transform: `translateY(${-scrollY * 600}px)`,
+                                transform: `translateY(${-scrollY * 400}px)`,
                                 transition: 'transform 0.05s linear'
                             }}
                         >
@@ -371,9 +371,9 @@ export default function DiffuzioScrollPosts() {
                         </div>
 
                         <div
-                            className="space-y-8"
+                            className="space-y-6"
                             style={{
-                                transform: `translateY(${scrollY * 600}px)`,
+                                transform: `translateY(${scrollY * 400}px)`,
                                 transition: 'transform 0.05s linear'
                             }}
                         >
@@ -386,10 +386,10 @@ export default function DiffuzioScrollPosts() {
                     </div>
                 </div>
 
-                <div className="hidden md:block h-screen"></div>
+                <div className="hidden md:block h-30"></div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
         </section>
     );
 }

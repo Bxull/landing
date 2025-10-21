@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NetworkDiffusion from "@/components/visualizations/NetworkDiffusion";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,18 @@ export const HeroSplit: React.FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { locale, setLocale, t } = useLocale();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 1224);
+    }
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
 
   const handleButtonClick = () => {
     setIsLoading(true);
@@ -22,6 +34,12 @@ export const HeroSplit: React.FC = () => {
     <section className="relative h-full isolate pt-28 md:pt-32 pb-24 overflow-hidden hero-vignette">
       <div className="hero-bg-gradient" />
       <div className="hero-bg-noise" />
+
+      {isMobile && (
+        <div className="absolute inset-0 z-0">
+          <NetworkDiffusion variant="panel" />
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid gap-16 lg:grid-cols-2 items-center min-h-[60vh]">
@@ -67,14 +85,16 @@ export const HeroSplit: React.FC = () => {
             </div>
           </motion.div>
 
-          <motion.div
-            className="relative h-[580px] sm:h-[520px] md:h-[560px] lg:h-[640px]"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.3, delay: 0.3 }}
-          >
-            <NetworkDiffusion variant="panel" />
-          </motion.div>
+          {!isMobile && (
+            <motion.div
+              className="relative h-[580px] sm:h-[520px] md:h-[560px] lg:h-[640px]"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.3, delay: 0.3 }}
+            >
+              <NetworkDiffusion variant="panel" />
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
