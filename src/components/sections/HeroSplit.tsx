@@ -87,12 +87,36 @@ export const HeroSplit: React.FC = () => {
 
           {!isMobile && (
             <motion.div
-              className="relative h-[580px] sm:h-[520px] md:h-[560px] lg:h-[640px]"
+              className="relative h-[580px] sm:h-[520px] md:h-[560px] lg:h-[640px] flex items-center justify-center"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.3, delay: 0.3 }}
             >
-              <NetworkDiffusion variant="panel" />
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <motion.div
+                  className="text-[300px] font-black text-violet-500/80"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.7, 0.9, 0.7],
+                    textShadow: [
+                      "0 0 20px rgba(139, 92, 246, 0.5)",
+                      "0 0 40px rgba(139, 92, 246, 0.8)",
+                      "0 0 20px rgba(139, 92, 246, 0.5)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  D
+                </motion.div>
+              </div>
+
+              <div className="absolute inset-0 z-0">
+                <NetworkDiffusion variant="panel" />
+              </div>
             </motion.div>
           )}
         </div>

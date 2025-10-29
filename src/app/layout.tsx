@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
-import { LocaleProvider } from "@/components/LocaleContext";
+import { LocaleProvider, useLocale } from "@/components/LocaleContext";
 
 
 export const metadata: Metadata = {
