@@ -8,6 +8,17 @@ export function FeaturesSection() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { locale, setLocale, t } = useLocale();
 
+  const getVideoSource = () => {
+    switch (locale) {
+      case 'en':
+        return "/demo_video_en.MOV";
+      case 'ru':
+        return "/demo_video.mp4";
+      default:
+        return "/demo_video.mp4";
+    }
+  };
+
   const handleVideoClick = () => {
     setIsFullscreen(true);
     const videoElement = document.getElementById("feature-video") as HTMLVideoElement;
@@ -81,7 +92,7 @@ export function FeaturesSection() {
             playsInline
             className="w-full rounded-2xl"
           >
-            <source src="/demo_video.mp4" type="video/mp4" />
+            <source src={getVideoSource()} type="video/mp4" />
           </video>
 
           <div className="absolute inset-0 bg-gradient-to-t from-violet-950/40 to-transparent pointer-events-none" />
