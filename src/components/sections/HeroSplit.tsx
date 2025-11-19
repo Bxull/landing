@@ -23,6 +23,10 @@ export const HeroSplit: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   const handleButtonClick = () => {
     setIsLoading(true);
     setTimeout(() => {

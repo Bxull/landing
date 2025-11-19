@@ -25,6 +25,10 @@ export default function CTASection() {
   const animationRef = useRef<number>();
   const { locale, setLocale, t } = useLocale();
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   const handleButtonClick = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -150,7 +154,6 @@ export default function CTASection() {
     };
 
     animate();
-
     return () => {
       window.removeEventListener("resize", updateSize);
       window.removeEventListener("mousemove", handleMouseMove);
