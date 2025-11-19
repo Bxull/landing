@@ -26,7 +26,8 @@ export const HeroSplit: React.FC = () => {
   const handleButtonClick = () => {
     setIsLoading(true);
     setTimeout(() => {
-      router.push("https://my.diffuz.io");
+      let videoUrl = locale === 'kz' ? '/ru.mp4' : `/${locale}.mp4`;
+      router.push(videoUrl);
     }, 800);
   };
 
