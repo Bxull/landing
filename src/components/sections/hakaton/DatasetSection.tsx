@@ -1,13 +1,14 @@
 "use client";
 
+import { SOCIAL_ICONS } from "@/lib/constants";
 import { motion, Variants } from "framer-motion";
-import { Linkedin, Instagram, Facebook, Send, FileText } from 'lucide-react';
+import Image from "next/image";
 
 const socialNetworks = [
-    { name: 'LinkedIn', icon: Linkedin },
-    { name: 'Instagram', icon: Instagram },
-    { name: 'Facebook', icon: Facebook },
-    { name: 'Telegram', icon: Send },
+    { name: 'LinkedIn', icon: SOCIAL_ICONS.linkedin },
+    { name: 'Instagram', icon: SOCIAL_ICONS.instagram },
+    { name: 'Facebook', icon: SOCIAL_ICONS.facebook },
+    { name: 'Telegram', icon: SOCIAL_ICONS.telegram },
 ];
 
 export const DatasetSection = () => {
@@ -79,7 +80,13 @@ export const DatasetSection = () => {
                             className="group relative flex flex-col items-center gap-2 p-4 w-32 h-32 rounded-2xl bg-white/5 border border-purple-500/20 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-purple-500/40 hover:-translate-y-1"
                         >
                             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-fuchsia-500/0 to-cyan-500/0 group-hover:from-fuchsia-500/10 group-hover:to-cyan-500/10 transition-all duration-300" />
-                            <social.icon className="w-8 h-8 text-violet-300 transition-colors group-hover:text-white" />
+                            <Image
+                                src={social.icon}
+                                alt={`${social.name} icon`}
+                                width={32}
+                                height={32}
+                                className="w-8 h-8 text-violet-300 transition-colors group-hover:text-white"
+                            />
                             <span className="text-sm text-white/70 transition-colors group-hover:text-white">{social.name}</span>
                         </div>
                     ))}
@@ -110,7 +117,6 @@ export const DatasetSection = () => {
                         </span>
                     </button>
                 </motion.div>
-
             </motion.div>
         </section>
     );

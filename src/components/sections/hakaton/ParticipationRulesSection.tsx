@@ -1,12 +1,20 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Code2, Users, FolderKanban, Cloud, BrainCircuit, Settings2 } from 'lucide-react';
+import { Code2, Users, FolderKanban, Cloud, BrainCircuit } from 'lucide-react';
 
 const rules = [
     {
         icon: Code2,
-        text: "Можно использовать Python, JS, любые ИИ-модели.",
+        text: "Разрешено использовать Python, JS, свои модели и кастомные алгоритмы.",
+    },
+    {
+        icon: BrainCircuit,
+        text: "Fine-tuning приветствуется: можно обучать модели под свою задачу, делать LoRA, адаптивные пайплайны и эксперименты.",
+    },
+    {
+        icon: Cloud,
+        text: "Модели можно запускать через API, локально или полностью на своих вычислительных графах.",
     },
     {
         icon: Users,
@@ -16,18 +24,10 @@ const rules = [
         icon: FolderKanban,
         title: "Решение оформляется в виде:",
         subItems: [
-            "Jupyter Notebook / Python-скрипта",
-            "JSON-выходных данных",
-            "Короткой презентации",
+            "Jupyter Notebook / Python-скрипта — с демонстрацией пайплайна",
+            "JSON-выходных данных или инференс-процесса",
+            "Краткой презентации с объяснением подхода",
         ],
-    },
-    {
-        icon: Cloud,
-        text: "Модели можно использовать API или локально.",
-    },
-    {
-        icon: BrainCircuit,
-        text: "Fine-tuning разрешён, но не обязателен.",
     },
 ];
 
@@ -36,9 +36,7 @@ export const ParticipationRulesSection = () => {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
+            transition: { staggerChildren: 0.1 },
         },
     };
 
@@ -48,7 +46,7 @@ export const ParticipationRulesSection = () => {
             opacity: 1,
             y: 0,
             scale: 1,
-            transition: { duration: 0.5, ease: "easeOut" as const },
+            transition: { duration: 0.5, ease: "easeOut" },
         },
     };
 

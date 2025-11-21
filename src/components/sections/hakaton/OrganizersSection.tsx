@@ -7,20 +7,20 @@ const contacts = [
     {
         icon: Send,
         name: "Telegram",
-        value: "@username",
-        href: "https://t.me/username", 
+        value: "@diffuzio",
+        href: "https://t.me/diffuzio", 
     },
     {
         icon: Mail,
         name: "Email",
-        value: "info@something.kz",
-        href: "mailto:info@something.kz",
+        value: "info@diffuz.io",
+        href: "mailto:info@diffuz.io",
     },
 ];
 
 export const OrganizersSection = () => {
 
-    const supportingText = "Хакатон проводится при поддержке: <span class='font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400'>iMean, НИШ, менторов индустрии, invited speakers.</span>";
+    const supportingText = "Хакатон проводится при поддержке: <span class='font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400'>Diffuzio, менторов индустрии, invited speakers.</span>";
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },

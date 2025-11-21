@@ -118,7 +118,7 @@ export const TaskDescriptionSection = () => {
                             Это задание объединяет стиль письма, аналитику, программирование и работу с ИИ.
                         </p>
                         <p className="mt-2 text-base text-violet-300">
-                            Идеально для 11 класса НИШ.
+                            Идеально для 11 класса.
                         </p>
                     </motion.div>
 

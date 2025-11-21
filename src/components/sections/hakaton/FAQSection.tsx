@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,33 +6,33 @@ import { ChevronDown } from "lucide-react";
 
 const faqData = [
     {
-        question: "Можно ли использовать GPT/Claude?",
-        answer: "Да, вы можете использовать любые доступные AI-модели, включая GPT, Claude, Llama и другие, как через API, так и локально.",
+        question: "Можно ли использовать GPT/Claude/свои модели?",
+        answer:
+            "Да, можно. Разрешены любые AI-модели: GPT, Claude, Llama, локальные модели, а также ваши собственные пайплайны и кастомные архитектуры.",
     },
     {
         question: "Нужно ли писать ML-модель с нуля?",
-        answer: "Нет, это не обязательно. Основная задача — инженерия промптов и анализ стиля. Однако, если вы хотите использовать fine-tuning или собственную модель для улучшения результата, это будет большим плюсом.",
+        answer:
+            "Нет, это не обязательно. Но использование fine-tuning, LoRA, собственных loss-функций или обученных под задачу моделей считается сильным преимуществом.",
     },
     {
         question: "Нужен ли Python?",
-        answer: "Желательно. Большинство инструментов для работы с текстами и моделями написаны на Python, и это сильно упростит вам задачу. Но если вы сможете решить задачу с помощью других инструментов (например, JavaScript/TypeScript), это также допускается.",
+        answer:
+            "Предпочтительно да. Python удобен для экспериментов, обучения и анализа. Но решение можно сделать и на JavaScript/TypeScript при наличии нужных инструментов.",
+    },
+    {
+        question: "Можно ли обучать модели локально?",
+        answer:
+            "Да. Вы можете запускать обучение и инференс локально, в облаке, через API или на своих вычислительных графах.",
     },
     {
         question: "Сколько времени займёт решение?",
-        answer: "Мы оцениваем, что на создание качественного решения потребуется от 6 до 10 часов активной работы, не считая времени на изучение материалов и эксперименты.",
+        answer:
+            "Обычно на создание качественного прототипа уходит 6–10 часов активной работы — включая эксперименты, тестирование и интеграцию моделей.",
     },
 ];
 
-
-const AccordionItem = ({
-    item,
-    isOpen,
-    onClick,
-}: {
-    item: { question: string; answer: string };
-    isOpen: boolean;
-    onClick: () => void;
-}) => {
+const AccordionItem = ({ item, isOpen, onClick }: { item: { question: string; answer: string }; isOpen: boolean; onClick: () => void; }) => {
     return (
         <div className="border-b border-purple-500/20">
             <button
@@ -65,7 +65,6 @@ const AccordionItem = ({
         </div>
     );
 };
-
 
 export const FAQSection = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);

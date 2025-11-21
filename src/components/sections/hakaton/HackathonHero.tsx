@@ -50,7 +50,7 @@ export const HackathonHero: React.FC = () => {
                             variants={itemVariants}
                             className="mb-4 text-base sm:text-lg font-semibold tracking-widest text-violet-300/90 uppercase"
                         >
-                            Diffuzio x NIS AI Hackathon 2025
+                            Diffuzio AI Hackathon 2025
                         </motion.p>
 
                         <motion.h1
