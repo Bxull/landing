@@ -17,7 +17,7 @@ export function Header() {
   ];
 
   const allLinks = isBeforeDecember ? 
-    [{ href: '/hakaton', label: 'Hakaton 28-29' }, ...links] : 
+    [{ href: '/hakaton', label: 'Hakaton 28-30' }, ...links] : 
     links;
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export function Header() {
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
   }, [open, contactOpen]);
+
 
   useEffect(() => {
     if (contactOpen) {
@@ -68,7 +69,7 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <motion.a
-          href="#"
+          href="/"
           className="text-2xl font-black tracking-tight text-white flex items-center gap-3 group"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
