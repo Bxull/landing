@@ -1,35 +1,39 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-
-const criteria = [
-    {
-        percentage: "40%",
-        title: "Tone-of-Voice Similarity",
-        description: "Насколько текст похож на стиль автора?",
-        details: "(читается экспертами + проверяется embeddings)",
-    },
-    {
-        percentage: "20%",
-        title: "Оригинальность",
-        description: "Текст должен быть новым, а не копированием.",
-        details: null,
-    },
-    {
-        percentage: "20%",
-        title: "Соответствие соцсети",
-        description: "Правильный стиль → правильная платформа.",
-        details: null,
-    },
-    {
-        percentage: "20%",
-        title: "Качество языка",
-        description: "Логичность, структура, отсутствие повторов.",
-        details: null,
-    },
-];
+import { useLocale } from "@/components/LocaleContext"; // Импортируем хук локали
 
 export const EvaluationCriteriaSection = () => {
+    const { t } = useLocale(); // Инициализируем локаль
+
+    // Данные теперь генерируются с использованием функции t()
+    const criteria = [
+        {
+            percentage: "40%",
+            title: t("CriteriaTitle1"),
+            description: t("CriteriaDesc1"),
+            details: t("CriteriaDetails1"),
+        },
+        {
+            percentage: "20%",
+            title: t("CriteriaTitle2"),
+            description: t("CriteriaDesc2"),
+            details: null, // Оставляем null, если нет деталей
+        },
+        {
+            percentage: "20%",
+            title: t("CriteriaTitle3"),
+            description: t("CriteriaDesc3"),
+            details: null,
+        },
+        {
+            percentage: "20%",
+            title: t("CriteriaTitle4"),
+            description: t("CriteriaDesc4"),
+            details: null,
+        },
+    ];
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -65,7 +69,8 @@ export const EvaluationCriteriaSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    Как мы оцениваем работу?
+                    {/* Локализовано */}
+                    {t("EvaluationTitle")}
                 </motion.h2>
 
                 <motion.div
@@ -93,13 +98,16 @@ export const EvaluationCriteriaSection = () => {
 
                             <div className="w-full">
                                 <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                                    {/* Локализовано */}
                                     {item.title}
                                 </h3>
                                 <p className="text-base md:text-lg text-violet-100/80 leading-relaxed">
+                                    {/* Локализовано */}
                                     {item.description}
                                 </p>
                                 {item.details && (
                                     <p className="mt-2 text-sm text-white/60">
+                                        {/* Локализовано */}
                                         {item.details}
                                     </p>
                                 )}

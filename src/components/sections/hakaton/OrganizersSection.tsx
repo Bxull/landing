@@ -2,25 +2,30 @@
 
 import { motion, Variants } from "framer-motion";
 import { Send, Mail } from 'lucide-react';
+import { useLocale } from "@/components/LocaleContext"; // Импортируем хук
 
-const contacts = [
+const contactsConfig = [
     {
         icon: Send,
-        name: "Telegram",
+        key: "telegram", // Используем ключ для локализации имени
         value: "@diffuzio",
-        href: "https://t.me/diffuzio", 
+        href: "https://t.me/diffuzio",
     },
     {
         icon: Mail,
-        name: "Email",
+        key: "email", // Используем ключ для локализации имени
         value: "info@diffuz.io",
         href: "mailto:info@diffuz.io",
     },
 ];
 
 export const OrganizersSection = () => {
+    const { t } = useLocale(); // Инициализируем локаль
 
-    const supportingText = "Хакатон проводится при поддержке: <span class='font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400'>Diffuzio, менторов индустрии, invited speakers.</span>";
+    // Локализуем текст поддержки, сохраняя HTML-структуру
+    const supportingText = t("OrganizersSupportText1") +
+        `<span class='font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400'>${t("OrganizersSupportTextHighlight")}</span>` +
+        t("OrganizersSupportText2");
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -58,7 +63,8 @@ export const OrganizersSection = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6">
-                        Организаторы
+                        {/* Локализовано */}
+                        {t("OrganizersTitle")}
                     </h2>
                     <p
                         className="text-lg md:text-xl text-violet-100/80 leading-relaxed"
@@ -73,7 +79,7 @@ export const OrganizersSection = () => {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
                 >
-                    {contacts.map((contact, index) => (
+                    {contactsConfig.map((contact, index) => (
                         <motion.a
                             key={index}
                             href={contact.href}
@@ -86,7 +92,8 @@ export const OrganizersSection = () => {
                                 <contact.icon className="w-7 h-7 text-violet-300 transition-colors duration-300 group-hover:text-white" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold text-white/90">{contact.name}</h3>
+                                {/* Локализовано имя контакта */}
+                                <h3 className="text-lg font-semibold text-white/90">{t(`ContactName_${contact.key}`)}</h3>
                                 <p className="text-base text-violet-100/70 transition-colors duration-300 group-hover:text-cyan-300">{contact.value}</p>
                             </div>
                         </motion.a>

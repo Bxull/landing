@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-
+import { useLocale } from "@/components/LocaleContext";
 interface CodeBlockProps {
     title: string;
     jsonContent: object;
@@ -20,8 +20,6 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ title, jsonContent, animationDela
         })
         .replace(/(\[|\]|\{|\}|\,)/g, '<span class="text-white/50">$1</span>');
 
-    const textChars = Array.from(highlightedCode.replace(/<[^>]*>/g, ''));
-
     const containerVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
@@ -39,7 +37,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ title, jsonContent, animationDela
         hidden: {},
         visible: {
             transition: {
-                staggerChildren: 0.008, 
+                staggerChildren: 0.008,
                 delayChildren: animationDelay + 0.5,
             },
         },
@@ -81,18 +79,20 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ title, jsonContent, animationDela
 
 
 export const CodeExampleSection = () => {
+    const { t } = useLocale();
+
     const inputData = {
         "author_id": "person_04",
         "social_network": "linkedin",
-        "topic": "Мои первые шаги как руководителя",
+        "topic": t("CodeInputTopic"), // Пример локализации ключа внутри JSON (опционально)
         "sample_posts": [
-            "Текст поста автора...",
-            "Ещё один текст..."
+            t("CodeInputSamplePost1"), // Пример локализации ключа внутри JSON (опционально)
+            t("CodeInputSamplePost2")
         ]
     };
 
     const outputData = {
-        "generated_post": "Новый текст в стиле автора..."
+        "generated_post": t("CodeOutputGeneratedPost")
     };
 
     return (
@@ -109,13 +109,15 @@ export const CodeExampleSection = () => {
                 viewport={{ once: true, amount: 0.2 }}
             >
                 <CodeBlock
-                    title="Пример входных данных"
+                    // 3. Используем t() для заголовка
+                    title={t("CodeBlockInputTitle")}
                     jsonContent={inputData}
                 />
                 <CodeBlock
-                    title="Пример результата"
+                    // 3. Используем t() для заголовка
+                    title={t("CodeBlockOutputTitle")}
                     jsonContent={outputData}
-                    animationDelay={0.3} 
+                    animationDelay={0.3}
                 />
             </motion.div>
         </section>

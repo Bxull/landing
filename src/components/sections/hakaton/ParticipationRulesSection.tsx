@@ -2,36 +2,40 @@
 
 import { motion, Variants } from "framer-motion";
 import { Code2, Users, FolderKanban, Cloud, BrainCircuit } from 'lucide-react';
-
-const rules = [
-    {
-        icon: Code2,
-        text: "Разрешено использовать Python, JS, свои модели и кастомные алгоритмы.",
-    },
-    {
-        icon: BrainCircuit,
-        text: "Fine-tuning приветствуется: можно обучать модели под свою задачу, делать LoRA, адаптивные пайплайны и эксперименты.",
-    },
-    {
-        icon: Cloud,
-        text: "Модели можно запускать через API, локально или полностью на своих вычислительных графах.",
-    },
-    {
-        icon: Users,
-        text: "Команды по 2–5 человек.",
-    },
-    {
-        icon: FolderKanban,
-        title: "Решение оформляется в виде:",
-        subItems: [
-            "Jupyter Notebook / Python-скрипта — с демонстрацией пайплайна",
-            "JSON-выходных данных или инференс-процесса",
-            "Краткой презентации с объяснением подхода",
-        ],
-    },
-];
+import { useLocale } from "@/components/LocaleContext"; // Импортируем хук
 
 export const ParticipationRulesSection = () => {
+    const { t } = useLocale(); // Инициализируем локаль
+
+    // Формируем правила с использованием локализации
+    const rules = [
+        {
+            icon: Code2,
+            text: t("RuleText1"),
+        },
+        {
+            icon: BrainCircuit,
+            text: t("RuleText2"),
+        },
+        {
+            icon: Cloud,
+            text: t("RuleText3"),
+        },
+        {
+            icon: Users,
+            text: t("RuleText4"),
+        },
+        {
+            icon: FolderKanban,
+            title: t("RuleTitle5"),
+            subItems: [
+                t("RuleSubItem5_1"),
+                t("RuleSubItem5_2"),
+                t("RuleSubItem5_3"),
+            ],
+        },
+    ];
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -65,7 +69,8 @@ export const ParticipationRulesSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    Правила участия
+                    {/* Локализовано */}
+                    {t("RulesTitle")}
                 </motion.h2>
 
                 <motion.div

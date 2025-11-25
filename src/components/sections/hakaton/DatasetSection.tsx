@@ -3,15 +3,22 @@
 import { SOCIAL_ICONS } from "@/lib/constants";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+// 1. Импортируем хук локали
+import { useLocale } from "@/components/LocaleContext";
 
+// Соцсети теперь будут получать имя из локали, если это потребуется,
+// но тут мы пока оставим их оригинальные имена, т.к. они используются как ключи.
 const socialNetworks = [
-    { name: 'LinkedIn', icon: SOCIAL_ICONS.linkedin },
-    { name: 'Instagram', icon: SOCIAL_ICONS.instagram },
-    { name: 'Facebook', icon: SOCIAL_ICONS.facebook },
-    { name: 'Telegram', icon: SOCIAL_ICONS.telegram },
+    { key: 'linkedin', icon: SOCIAL_ICONS.linkedin },
+    { key: 'instagram', icon: SOCIAL_ICONS.instagram },
+    { key: 'facebook', icon: SOCIAL_ICONS.facebook },
+    { key: 'telegram', icon: SOCIAL_ICONS.telegram },
 ];
 
 export const DatasetSection = () => {
+    // 2. Инициализируем локаль
+    const { t } = useLocale();
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -59,15 +66,20 @@ export const DatasetSection = () => {
                     variants={itemVariants}
                     className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6"
                 >
-                    Датасет
+                    {/* Локализовано */}
+                    {t("DatasetTitle")}
                 </motion.h2>
 
                 <motion.p
                     variants={itemVariants}
                     className="text-lg md:text-xl text-violet-100/80 leading-relaxed max-w-3xl mx-auto"
                 >
-                    Вам предоставляются тексты <span className="font-bold text-white">10–15 персон</span>.
-                    У каждой — от <span className="font-bold text-white">10 до 60 постов</span>, опубликованных в разных соцсетях:
+                    {/* Локализовано. Используем компоненты для сохранения форматирования */}
+                    {t("DatasetDescription1")}
+                    <span className="font-bold text-white">{t("DatasetPersonsCount")}</span>.
+                    {t("DatasetDescription2")}
+                    <span className="font-bold text-white">{t("DatasetPostsCount")}</span>
+                    {t("DatasetDescription3")}
                 </motion.p>
 
                 <motion.div
@@ -82,12 +94,13 @@ export const DatasetSection = () => {
                             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-fuchsia-500/0 to-cyan-500/0 group-hover:from-fuchsia-500/10 group-hover:to-cyan-500/10 transition-all duration-300" />
                             <Image
                                 src={social.icon}
-                                alt={`${social.name} icon`}
+                                alt={`${social.key} icon`}
                                 width={32}
                                 height={32}
                                 className="w-8 h-8 text-violet-300 transition-colors group-hover:text-white"
                             />
-                            <span className="text-sm text-white/70 transition-colors group-hover:text-white">{social.name}</span>
+                            {/* Локализовано имя соцсети */}
+                            <span className="text-sm text-white/70 transition-colors group-hover:text-white">{t(`Social_${social.key}`)}</span>
                         </div>
                     ))}
                 </motion.div>
@@ -96,7 +109,8 @@ export const DatasetSection = () => {
                     variants={itemVariants}
                     className="mt-12 text-lg md:text-xl text-violet-100/80"
                 >
-                    Формат данных — JSON, чистый, структурированный.
+                    {/* Локализовано */}
+                    {t("DatasetFormat")}
                 </motion.p>
 
                 <motion.div
@@ -113,7 +127,8 @@ export const DatasetSection = () => {
 
                         <span className="relative z-10 flex items-center gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-2"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" /><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.79 1.1L21 9" /><path d="M12 3v6" /></svg>
-                            Скачать датасет
+                            {/* Локализовано */}
+                            {t("DatasetDownloadButton")}
                         </span>
                     </button>
                 </motion.div>

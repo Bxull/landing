@@ -10,9 +10,15 @@ export function Header() {
   const [contactOpen, setContactOpen] = useState(false);
   const { locale, setLocale, t } = useLocale();
 
+  const isBeforeDecember = new Date().getMonth() < 11; 
+
   const links = [
     { href: 'https://my.diffuz.io', label: t("demo") },
   ];
+
+  const allLinks = isBeforeDecember ? 
+    [{ href: '/hakaton', label: 'Hakaton 28-29' }, ...links] : 
+    links;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -71,7 +77,7 @@ export function Header() {
         </motion.a>
 
         <nav className="hidden md:flex items-center gap-2">
-          {links.map((l, idx) => (
+          {allLinks.map((l, idx) => (
             <motion.a
               key={l.href}
               href={l.href}
@@ -163,7 +169,7 @@ export function Header() {
             className="md:hidden overflow-hidden backdrop-blur-xl bg-black/95 border-t border-purple-500/20"
           >
             <nav className="flex flex-col px-6 py-6 gap-1">
-              {links.map((l, idx) => (
+              {allLinks.map((l, idx) => (
                 <motion.a
                   key={l.href}
                   href={l.href}

@@ -4,18 +4,23 @@ import React, { useState } from "react";
 import NetworkDiffusion from "@/components/visualizations/NetworkDiffusion";
 import { motion, Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
+// 1. Импортируем хук
+import { useLocale } from "@/components/LocaleContext";
 
 export const HackathonHero: React.FC = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+
+    // 2. Инициализируем локаль
+    const { t } = useLocale();
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2, 
-                delayChildren: 0.3,   
+                staggerChildren: 0.2,
+                delayChildren: 0.3,
             },
         },
     };
@@ -50,7 +55,8 @@ export const HackathonHero: React.FC = () => {
                             variants={itemVariants}
                             className="mb-4 text-base sm:text-lg font-semibold tracking-widest text-violet-300/90 uppercase"
                         >
-                            Diffuzio AI Hackathon 2025
+                            {/* Заменено на ключ */}
+                            {t("HeroSubtitle")}
                         </motion.p>
 
                         <motion.h1
@@ -58,18 +64,21 @@ export const HackathonHero: React.FC = () => {
                             className="text-[clamp(2.2rem,6vw,4.5rem)] font-black leading-[1.1] tracking-tight text-white mb-8 max-w-4xl"
                         >
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-300 to-violet-400 drop-shadow-[0_0_25px_rgba(200,100,255,0.3)]">
-                                Tone of Voice
+                                {/* Заменено на ключ */}
+                                {t("HeroTitleHighlight")}
                             </span>
-                            Generation Challenge
+                            {/* Заменено на ключ */}
+                            {t("HeroTitleMain")}
                         </motion.h1>
 
                         <motion.p
                             variants={itemVariants}
                             className="text-base sm:text-lg md:text-xl text-violet-100/80 leading-relaxed mb-12 max-w-2xl"
                         >
-                            Создай ИИ, который пишет как настоящий человек.
+                            {/* Текст разбит на две части, чтобы сохранить логику <br> */}
+                            {t("HeroDescLine1")}
                             <br className="hidden sm:block" />
-                            Анализируй стиль. Генерируй посты. Соревнуйся.
+                            {t("HeroDescLine2")}
                         </motion.p>
 
                     </motion.div>

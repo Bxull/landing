@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { useLocale } from "@/components/LocaleContext"; // Импортируем хук
 
 const CheckIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,6 +27,7 @@ const CheckIcon = () => (
 
 
 export const TaskDescriptionSection = () => {
+    const { t } = useLocale(); // Инициализируем локаль
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -46,17 +48,17 @@ export const TaskDescriptionSection = () => {
         },
     };
 
+    // Задачи теперь локализованы
     const tasks = [
-        {
-            text: "<strong>анализирует стиль</strong> конкретного автора,"
-        },
-        {
-            text: "<strong>выделяет особенности</strong> его речи,"
-        },
-        {
-            text: "и <strong>генерирует новый пост</strong>,<br class='hidden md:block' /> который звучит как этот автор, соответствует темам и подходит под выбранную соцсеть."
-        }
+        { text: t("Task1") },
+        { text: t("Task2") },
+        { text: t("Task3") }
     ];
+
+    // Функция для обработки <strong> тегов в локализованной строке
+    const processTaskText = (text: string) => {
+        return text.replace(/<strong>(.*?)<\/strong>/g, '<span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400">$1</span>');
+    };
 
     return (
         <section className="relative bg-black text-white py-24 sm:py-32 px-6">
@@ -75,7 +77,8 @@ export const TaskDescriptionSection = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight text-white/95">
-                        Что нужно сделать?
+                        {/* Локализовано */}
+                        {t("TaskSectionTitle")}
                     </h2>
                 </motion.div>
 
@@ -89,7 +92,8 @@ export const TaskDescriptionSection = () => {
                         variants={itemVariants}
                         className="text-lg md:text-xl text-violet-100/80 leading-relaxed"
                     >
-                        У тебя есть тексты реальных персон (от 10 до 60 постов у каждой). Твоя задача — создать систему, которая:
+                        {/* Локализовано */}
+                        {t("TaskIntroText")}
                     </motion.p>
 
                     <div className="mt-10 space-y-6">
@@ -104,7 +108,8 @@ export const TaskDescriptionSection = () => {
                                 </div>
                                 <p
                                     className="text-lg md:text-xl text-violet-100/80 leading-relaxed"
-                                    dangerouslySetInnerHTML={{ __html: task.text.replace(/<strong>(.*?)<\/strong>/g, '<span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400">$1</span>') }}
+                                    // Используем функцию для обработки HTML
+                                    dangerouslySetInnerHTML={{ __html: processTaskText(task.text) }}
                                 />
                             </motion.div>
                         ))}
@@ -115,10 +120,12 @@ export const TaskDescriptionSection = () => {
                         className="mt-12 p-6 rounded-2xl bg-white/5 border border-purple-500/20 backdrop-blur-sm shadow-lg"
                     >
                         <p className="text-lg text-white/90">
-                            Это задание объединяет стиль письма, аналитику, программирование и работу с ИИ.
+                            {/* Локализовано */}
+                            {t("TaskFooterMain")}
                         </p>
                         <p className="mt-2 text-base text-violet-300">
-                            Идеально для 11 класса.
+                            {/* Локализовано */}
+                            {t("TaskFooterSub")}
                         </p>
                     </motion.div>
 

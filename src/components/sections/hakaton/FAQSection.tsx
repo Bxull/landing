@@ -3,34 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useLocale } from "@/components/LocaleContext"; // Импортируем хук локали
 
-const faqData = [
-    {
-        question: "Можно ли использовать GPT/Claude/свои модели?",
-        answer:
-            "Да, можно. Разрешены любые AI-модели: GPT, Claude, Llama, локальные модели, а также ваши собственные пайплайны и кастомные архитектуры.",
-    },
-    {
-        question: "Нужно ли писать ML-модель с нуля?",
-        answer:
-            "Нет, это не обязательно. Но использование fine-tuning, LoRA, собственных loss-функций или обученных под задачу моделей считается сильным преимуществом.",
-    },
-    {
-        question: "Нужен ли Python?",
-        answer:
-            "Предпочтительно да. Python удобен для экспериментов, обучения и анализа. Но решение можно сделать и на JavaScript/TypeScript при наличии нужных инструментов.",
-    },
-    {
-        question: "Можно ли обучать модели локально?",
-        answer:
-            "Да. Вы можете запускать обучение и инференс локально, в облаке, через API или на своих вычислительных графах.",
-    },
-    {
-        question: "Сколько времени займёт решение?",
-        answer:
-            "Обычно на создание качественного прототипа уходит 6–10 часов активной работы — включая эксперименты, тестирование и интеграцию моделей.",
-    },
-];
 
 const AccordionItem = ({ item, isOpen, onClick }: { item: { question: string; answer: string }; isOpen: boolean; onClick: () => void; }) => {
     return (
@@ -68,6 +42,31 @@ const AccordionItem = ({ item, isOpen, onClick }: { item: { question: string; an
 
 export const FAQSection = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { t } = useLocale(); // Инициализируем локаль
+
+    // Формируем faqData с использованием локализации
+    const faqData = [
+        {
+            question: t("FAQ_Q1"),
+            answer: t("FAQ_A1"),
+        },
+        {
+            question: t("FAQ_Q2"),
+            answer: t("FAQ_A2"),
+        },
+        {
+            question: t("FAQ_Q3"),
+            answer: t("FAQ_A3"),
+        },
+        {
+            question: t("FAQ_Q4"),
+            answer: t("FAQ_A4"),
+        },
+        {
+            question: t("FAQ_Q5"),
+            answer: t("FAQ_A5"),
+        },
+    ];
 
     const handleClick = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -88,7 +87,8 @@ export const FAQSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    Частые вопросы
+                    {/* Локализовано */}
+                    {t("FAQTitle")}
                 </motion.h2>
 
                 <motion.div
